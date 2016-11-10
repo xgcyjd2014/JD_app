@@ -43,6 +43,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function(){
+
 		// var ver = api.version;
 		// var sType = api.systemType;
 		// var sVer = api.systemVersion;
@@ -50,14 +51,19 @@
 		// var model = api.deviceModel;
 		// var name = api.deviceName;
 		// var cType = api.connectionType;
-		// var winName = api.winName;
-		// var winWidth = api.winWidth;
-		// var winHeight = api.winHeight;
-		// var frameName = api.frameName || '';
-		// var frameWidth = api.frameWidth || '';
-		// var frameHeight = api.frameHeight || '';
+		var winName = api.winName;
+		var winWidth = api.winWidth;
+		var winHeight = api.winHeight;
+		var frameName = api.frameName || '';
+		var frameWidth = api.frameWidth || '';
+		var frameHeight = api.frameHeight || '';
 
-		// var str = '<ul>';
+		// openWin,openFrame方法中的参数获取
+		var pageParam = api.pageParam; //比如： {"name" : "tans-con"}
+		// openWidget页面间的参数传递
+		var wghParam = api.wgtParam;
+
+		var str = '<ul>';
 		// str += '<li>引擎版本信息: ' + ver + '</li>';
 		// str += '<li>系统类型: ' + sType + '</li>';
 		// str += '<li>系统版本: ' + sVer + '</li>';
@@ -65,16 +71,51 @@
 		// str += '<li>设备型号: ' + model + '</li>';
 		// str += '<li>设备名称: ' + name + '</li>';
 		// str += '<li>网络状态: ' + cType + '</li>';
-		// str += '<li>主窗口名字: ' + winName + '</li>';
-		// str += '<li>主窗口宽度: ' + winWidth + '</li>';
-		// str += '<li>主窗口高度: ' + winHeight + '</li>';
-		// str += '<li>子窗口名字: ' + frameName + '</li>';
-		// str += '<li>子窗口宽度: ' + frameWidth + '</li>';
-		// str += '<li>子窗口高度: ' + frameHeight + '</li>';
-		// str += '</ul>';
+		str += '<li>主窗口名字: ' + winName + '</li>';
+		str += '<li>主窗口宽度: ' + winWidth + '</li>';
+		str += '<li>主窗口高度: ' + winHeight + '</li>';
+		str += '<li>子窗口名字: ' + frameName + '</li>';
+		str += '<li>子窗口宽度: ' + frameWidth + '</li>';
+		str += '<li>子窗口高度: ' + frameHeight + '</li>';
+		str += '</ul>';
 
-		// $api.byId('sys-info').innerHTML = str;
+		$api.byId('sys-info').innerHTML = str;
+		api.addEventListener({
+			name: "scrolltobottom",
+			extra: {
+				threshold: 0
+			}
+		},function(ret, err) {
+			alert("已经到底端了");
+		});
 
+		api.addEventListener({
+			name: "shake"
+		}, function(ret, err) {
+			alert("你触发了摇动事件");
+		});
+
+		api.addEventListener({
+			name: "tap"
+		}, function(ret, err) {
+			api.getPicture({
+				sourceType: 'camera',
+			    encodingType: 'jpg',
+			    mediaValue: 'pic',
+			    destinationType: 'url',
+			    allowEdit: true,
+			    quality: 50,
+			    targetWidth: 100,
+			    targetHeight: 100,
+			    saveToPhotoAlbum: false
+			}, function(ret,err){
+				 if (ret) {
+			        alert(JSON.stringify(ret));
+			    } else {
+			        alert(JSON.stringify(err));
+			    }
+			});
+		});
     };
 </script>
 </html>
