@@ -1,0 +1,51 @@
+<!-- 
+    author: 倪云港(Neo);
+    version: 1.2;
+    data: 2016.11.12;
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>task_info</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../css/frozen.css">
+    <script src="../js/zepto.min.js"></script>
+    <script src="../js/frozen.js"></script>
+</head>
+<body>
+
+<header class="ui-header ui-header-stable ui-border-b">
+    <i class="ui-icon-return" onclick="history.back()"></i>
+    <h1>作业详情</h1>
+</header>
+
+<footer class="ui-footer ui-footer-stable ui-border-t">
+    <ul class="ui-tiled">
+        <li><i class="ui-icon-home"></i></li>
+        <li><i class="ui-icon-news"></i></li>
+        <li><i class="ui-icon-order"></i></li>
+        <li><i id="me" class="ui-icon-personal"></i></li>
+    </ul>
+</footer>
+
+<section class="ui-container ui-border-tb"">
+    <h1 style="text-align: center;">标题</h1>
+    <p style="margin: 10px">作业内容:<p>
+    <div style="width: 90%; margin: 0 auto; padding: 5px;">
+        <div>这是内容这是内容这是内容这是内容这是内容这是内容</div>
+        <p style="margin-top: 50px;">github链接：<a href="http://www.baidu.com">www.baidu.com</a></p>
+    </div>
+</section>
+
+<script>
+    // 个人中心
+    $('#me').tap(function(){
+        location.href="me.html";
+    });
+</script>
+
+</body>
+</html>

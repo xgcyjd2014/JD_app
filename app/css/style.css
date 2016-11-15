@@ -1,0 +1,46 @@
+@font-face {font-family: "iconfont";
+  src: url('../common/font_5lju25b7eovfgvi/iconfont.eot'); /* IE9*/
+  src: url('../common/font_5lju25b7eovfgvi/iconfont.eot#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../common/font_5lju25b7eovfgvi/iconfont.woff') format('woff'), /* chrome, firefox */
+  url('../common/font_5lju25b7eovfgvi/iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../common/font_5lju25b7eovfgvi/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flex {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-flex;
+}
+
+.flex-con {
+  flex: 1;
+}
+
+.header {
+  background-color: #1c86d1;
+}
+
+.header  .ui-icon-return {
+    position: absolute;
+    left: 0;
+}
+.header h1 {
+    text-align: center;
+    font-size: 18px;
+    line-height: 45px;
+}

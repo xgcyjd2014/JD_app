@@ -7,7 +7,7 @@
     <author email="allenyang1995outlook.com" href="http://allenyang.cn">
         Developer
     </author>
-    <content src="index.html" />
+    <content src="login.html" />
     <access origin="*" />
     <preference name="pageBounce" value="false"/>
 	<preference name="appBackground" value="rgba(0,0,0,0.0)"/>

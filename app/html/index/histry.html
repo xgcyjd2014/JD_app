@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<title></title>
+	<script type="text/javascript" src="frozen/js/lib/zeptojs/zepto.min.js"></script>
+	<script src="frozen/js/frozen.js"></script>
+	<script type="text/javascript">
+		document.getElementsByTagName("html")[0].style.fontSize=document.documentElement.clientWidth/10+"px";
+	</script>
+	<link rel="stylesheet" type="text/css" href="frozen/css/frozen.css">
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		overflow: hidden;
+		font-size: 0.4rem;
+	}
+	@font-face {
+		font-family: "iconfont";
+		src: url('font/font_buemt2q386hto6r/iconfont.eot');
+        src: url('font/font_buemt2q386hto6r/iconfont.eot#iefix') format('embedded-opentype'),url('font/font_buemt2q386hto6r/iconfont.woff') format('woff'),url('font/font_buemt2q386hto6r/iconfont.ttf') format('truetype'),url('font/font_buemt2q386hto6r/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+    }
+    .iconfont {
+		font-family:"iconfont" !important;
+		font-size:0.2rem;
+		font-style:normal;
+		-webkit-font-smoothing: antialiased;
+		-webkit-text-stroke-width: 0.2px;
+		-moz-osx-font-smoothing: grayscale;
+    }
+	header{
+		height: 1.2rem;
+		width: 10rem;
+		line-height: 1.2rem;
+		background: #B4E5F2;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	header a{
+		width: 1.2rem;
+		height: 1.2rem;
+		position: absolute;
+		z-index: 9;
+	}
+	header h1{
+		width: 10rem;
+		font-size: 0.8rem;
+		color: #00A5E0;
+		text-align: center;
+		position: absolute;
+		top: 0;
+		left: calc(50%-5rem);
+	}
+	.con{
+		position: absolute;
+		left: 0;
+		top: 1.2rem;
+		overflow: auto;
+		width: 10rem;
+		height: 100%;
+	}
+	ul{
+		width: 10rem;
+	}
+	li{
+		width: 8rem;
+		padding: 0.2rem 1rem;
+	}
+	li a{
+		color: #000;
+	}
+	li h3{
+		font-weight: bold;
+	}
+	li time{
+		display: inline-block;
+		width: 3rem;
+		height: 0.6rem;
+		line-height: 0.8rem;
+	}
+	</style>
+</head>
+<body>
+<header>
+	<a href="index.html">
+		<i class="ui-icon-return"></i>
+	</a>
+	<h1>历史公告</h1>
+</header>
+<div class="con">
+	<div class="ui-searchbar-wrap ui-border-b">
+	    <div class="ui-searchbar ui-border-radius">
+	        <i class="ui-icon-search"></i>
+	        <div class="ui-searchbar-text">搜索</div>
+	        <div class="ui-searchbar-input"><input value="" type="tel" placeholder="搜索号码（2-10位）" autocapitalize="off"></div>
+	        <i class="ui-icon-close"></i>
+	    </div>
+	    <button class="ui-searchbar-cancel">取消</button>
+	</div>
+	<ul class="ui-border-tb">
+		<li class="ui-border-tb">
+			<a href="">
+				<h3>周日开会通知</h3>
+				<div class="ui-nowrap">
+					通知，明天下午2点，在汇文楼625开会。有事提前向我请假，不准无故不到。会和大家一起交流下项目的问题以及基地分组的问题，二次纳新的新成员也将和大家见面，大家帮着新成员装下学习需要的软件和环境。明天见。
+				</div>
+				<time><i class="iconfont">&#xe619;</i>&nbsp;&nbsp;11/11/11</time>
+			</a>
+		</li>
+		<li class="ui-border-tb">
+			<a href="">
+				<h3>周日开会通知</h3>
+				<div class="ui-nowrap">
+					通知，明天下午2点，在汇文楼625开会。有事提前向我请假，不准无故不到。会和大家一起交流下项目的问题以及基地分组的问题，二次纳新的新成员也将和大家见面，大家帮着新成员装下学习需要的软件和环境。明天见。
+				</div>
+				<time><i class="iconfont">&#xe619;</i>&nbsp;&nbsp;11/11/11</time>
+			</a>
+		</li>
+	</ul>
+        
+</div>
+<script type="text/javascript">
+    $('.ui-searchbar').tap(function(){
+        $('.ui-searchbar-wrap').addClass('focus');
+        $('.ui-searchbar-input input').focus();
+    });
+    $('.ui-searchbar-cancel').tap(function(){
+        $('.ui-searchbar-wrap').removeClass('focus');
+    });
+</script>
+</body>
+</html>

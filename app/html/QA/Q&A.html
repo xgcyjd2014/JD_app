@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>Q&A</title>
+        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=37342703" charset="UTF-8"></script>
+        <link rel="stylesheet" href="http://frozenui.github.io/frozenui/css/frozen.css">
+        <link rel="stylesheet" href="http://frozenui.github.io/frozenui/demo/demo.css">
+        <script src="http://frozenui.github.io/frozenui/lib/zepto.min.js"></script>
+        <script src="http://frozenui.github.io/frozenui/frozenui/frozen.js"></script>
+        <style type="text/css">
+            body{   
+                background-color: whitesmoke;
+                font-family: "黑体";
+            }
+            .clear{
+                clear: both;
+            }
+            .fl{
+                float: left;
+            }
+            .fr{
+                float: right;
+            }
+            .fontclass{
+                color: dimgrey;
+            }
+            .icon-height{
+                height: 32px;
+            }
+            .ui-container ul{
+               
+                background-color: whitesmoke;
+            }
+            .ui-container ui li{
+                margin-top: 10px;
+                margin-left: 0;
+                padding: 10px;
+                background-color: white;
+            }
+            .history-question{
+                height: 90px;
+                line-height: 90px;
+            }
+            .history-question i{
+                margin-top: 23px ;
+            }
+        </style>
+    </head>
+    <body ontouchstart>
+         <header class="ui-header ui-header-positive ui-border-b">
+            <h1>Q&A</h1>
+            <button class="ui-btn" onclick="location.href='question.html'">提问</button>
+        </header>
+        <footer class="ui-footer ui-footer-btn">
+            <ui class="ui-tiled ui-border-t">
+                <li class="ui-border-r">
+                    <i class="ui-icon-home icon-height"></i>
+                    <div class="fontclass">首页</div>
+                </li>
+                <li class="ui-border-r" onclick="location.href='Q&A.html'">
+                    <i class="ui-icon-comment icon-height"></i>
+                    <div class="fontclass">问答</div>
+                </li>
+                <li class="ui-border-r">
+                    <i class="ui-icon-file icon-height"></i>
+                    <div class="fontclass">作业</div>
+                </li>
+                <li class="ui-border-r">
+                    <i class="ui-icon-personal icon-height"></i>
+                    <div class="fontclass">个人中心</div>
+                </li>
+            </ui>
+        </footer>
+        <section class="ui-container">
+            <section id="list">
+                <ui class="ui-list ui-list-link ui-border-tb">
+                    <li>
+                        <div class="ui-avatar">
+                            <span style="background-image:url(http://placeholder.qiniudn.com/100x100)"></span>
+                        </div>
+                        <div class="ui-list-info ui-border-t">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <div class="history-question">
+                        <i class="ui-icon-star fl" onclick="location.href='history.html'"></i>
+                        <p>历史回答</p>
+                        <div class="clear"></div>
+                    </div>    
+                    <li>
+                        <div class="ui-avatar">
+                            <span style="background-image:url(http://placeholder.qiniudn.com/100x100)"></span>
+                        </div>
+                        <div class="ui-list-info ui-border-t">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ui-avatar">
+                            <span style="background-image:url(http://placeholder.qiniudn.com/100x100)"></span>
+                        </div>
+                        <div class="ui-list-info ui-border-t">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                </ui>
+            </section>
+        </section>
+    </body>
+</html>

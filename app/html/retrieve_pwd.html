@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>找回密码</title>
+        <link rel="stylesheet" href="../css/frozen.css">
+        <style>
+          * {
+            font-family: "微软雅黑", arial;
+          }
+
+          .header {
+            background: #1c86d1;
+          }
+
+           .header > h1 {
+            color: #fff;
+          }
+
+          .header > .ui-icon-return {
+            color: #fff;
+          }
+        </style>
+    </head>
+    <body>
+      <header class="ui-header ui-header-stable ui-border-b header">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+        <h1>找回密码</h1>
+      </header>
+      <section class="ui-container">
+        <div class="ui-form-item ui-form-item-pure  ui-form-item-l ui-border-b">
+            <label class="ui-border-r">
+                中国 +86
+            </label>
+            <input type="number" placeholder="手机号">
+            <a href="#" class="ui-icon-close"></a>
+        </div>
+        <div class="ui-form-item ui-form-item-r ui-border-b">
+            <input type="text" placeholder="请输入验证码">
+            <!-- 若按钮不可点击则添加 disabled 类 -->
+            <button type="button" class="ui-border-l">重新发送</button>
+            <a href="#" class="ui-icon-close"></a>
+        </div>
+        <div class="ui-btn-wrap" style="margin-top: 30px;">
+              <button class="ui-btn-lg ui-btn-primary">
+                  找回密码
+              </button>
+          </div>
+      </section>
+      <script>
+      </script>
+    </body>
+</html>

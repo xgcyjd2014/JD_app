@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>登录</title>
+        <link rel="stylesheet" href="common/frozenui-1.3.0/dist/css/frozen.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+       
+        <style>
+          
+
+         
+          .header > h1 {
+            color: #fff;
+          }
+
+          .header > .ui-icon-return {
+            color: #fff;
+          }
+
+          .options {
+            font-size: 14px;
+            color: #ccc;
+          }
+
+          .options:active {
+            color: #272636;
+          }
+
+          .lm {
+            margin-left: 30px;
+          }
+        </style>
+    </head>
+    <body>
+      <header class="header ui-header-stable ui-border-b header">
+        <h1>登录</h1>
+      </header>
+      <section class="ui-container">
+        <div class="ui-slider" id="slider">
+          <ul class="ui-slider-content" style="width: 300%">
+              <li><span style="background-image:url(http://placeholder.qiniudn.com/640x200)"></span></li>
+              <li><span style="background-image:url(http://placeholder.qiniudn.com/640x200)"></span></li>
+              <li><span style="background-image:url(http://placeholder.qiniudn.com/640x200)"></span></li>
+          </ul>
+        </div>
+        <div class="ui-form ui-border-t" style="padding-top: 60px;">
+          <form action="#">
+            <div class="ui-form-item ui-form-item-pure ui-border-b">
+                <input type="number" max-length=8 placeholder="学号">
+                <a href="#" class="ui-icon-close"></a>
+            </div>
+            <div class="ui-form-item ui-form-item-pure ui-border-b">
+                <input type="password" placeholder="密码">
+                <a href="#" class="ui-icon-close"></a>
+            </div>
+          </form>
+                      
+          <div class="ui-btn-wrap" style="margin-top: 30px;">
+              <button class="login ui-btn-lg ui-btn-primary">
+                  登录
+              </button>
+              
+              <button class="register ui-btn-lg ui-btn-danger" style="margin-top: 20px;">
+                  注册
+              </button>
+
+              <div class="info-item ui-flex ui-flex-pack-center" style="margin-top: 10px">
+                  <button class="options forgetPsw">忘记密码? </button>
+                  <button class="options lm">账号被冒用？ </button>
+              </div>
+          </div>
+
+        </div>
+      </section>
+      <script type="text/javascript" src="./script/api.js"></script>
+      <script>
+      apiready = function(){
+          var login     = $api.dom(".login"),
+              register  = $api.dom(".register"),
+              Head      = $api.dom("header"),
+              forgetPsw = $api.dom(".info-item forgetPsw"),
+              repeatNum = $api.dom(".info-item lm");
+
+          $api.fixStatusBar(Head);
+          
+          api.setStatusBarStyle({
+              style: 'dark'
+          });
+          
+          
+          // 开发使用，交互将改为ajax
+          $api.addEvt(login, 'click', function(){
+            api.openWin({
+              name: "index",
+              url: "index.html",
+              pageParam : {
+
+              }
+            });
+          });
+
+          // 跳转注册页面
+          $api.addEvt(register, 'click', function() {
+            api.openWin({
+              name: "register",
+              url: "html/register/register.html",
+              pageParam: {
+
+              }
+            });
+          });
+      }
+      </script>
+    </body>
+</html>

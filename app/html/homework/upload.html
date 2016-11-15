@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="dist\css\frozen.css">
+</head>
+<body>
+<header class="ui-header ui-header-stable ui-border-b">
+    <i class="ui-icon-return" onclick="history.back()"></i><h1>上传</h1>
+</header>
+<footer class="ui-footer ui-footer-stable ui-border-t">
+    <ul class="ui-tiled">
+         <li>
+            <i class="ui-icon-home"></i>
+        </li>
+        <li>
+            <i class="ui-icon-comment"></i>
+        </li>
+    
+        <li>
+            <i class="ui-icon-order"></i>
+        </li>
+        <li>
+            <i class="ui-icon-personal"></i>
+        </li>
+    </ul>
+</footer>
+<section class="ui-container ui-center" style="margin-top:20px;">
+    <div class="ui-form ui-border-t">
+    <form action="#">
+        <div class="ui-form-item ui-border-b">
+            <label>
+                作业名称
+            </label>
+            <input type="text" placeholder="单行输入">
+            <a href="#" class="ui-icon-close">
+            </a>
+        </div>
+        <div class="ui-form-item ui-form-item-textarea ui-border-b">
+            <label>
+                上传地址
+            </label>
+            <textarea placeholder="github地址"></textarea>
+        </div>
+        <div class="ui-btn-wrap">
+        <button class="ui-btn">
+        选择文件
+        </button>
+        </div>
+        
+    </form>
+</div>
+</section>
+<div class="ui-form-item ui-form-item-switch ui-border-b">
+            <p>
+                公开
+            </p>
+            <label class="ui-switch">
+                <input type="checkbox">
+            </label>
+        </div>
+        <div class="ui-btn-wrap">
+    <button class="ui-btn-lg ui-btn-primary">
+        确认上传
+    </button>
+</div>
+
+         
+</body>
+</html>

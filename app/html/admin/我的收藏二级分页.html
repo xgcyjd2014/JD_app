@@ -1,0 +1,111 @@
+<!-- 
+    author: 上官衍鹏;
+    version: 1.0;
+    data: 2016.11.13;
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的收藏</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/frozen.css">
+    <script src="lib/zepto.min.js"></script>
+    <script src="js/frozen.js"></script>
+    <style>
+        .ui-icon-star{
+            display: inline-block;
+        }
+        .ui-footer{
+            height: 68px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="ui-header ui-header-stable ui-border-b">
+    <i class="ui-icon-return" onclick="history.back()"></i>
+    <h1>我的收藏</h1><button class="ui-btn">回首页</button>
+</header>
+
+<footer class="ui-footer ui-footer-stable ui-border-t">
+    <ul class="ui-tiled">
+        <li><div></div><i class="ui-icon-home"></i>首页</li>
+        <li><div></div><i class="ui-icon-news"></i>问答</li>
+        <li><div></div><i class="ui-icon-order"></i>作业</li>
+        <li><div></div><i id="me" class="ui-icon-personal"></i>个人中心</li>
+    </ul>
+</footer>
+
+<section class="ui-container">
+<ul id="task_list" class="ui-list ui-list-link ui-border-tb">
+    <li class="ui-border-t">
+        <div class="ui-list-img">
+            <span style="background-image:url(http://placeholder.qiniudn.com/200x136)"></span>
+        </div>
+        <div class="ui-list-info">
+            <h4 class="ui-nowrap">我的收藏1<span class="ui-icon-star"></span></h4>
+            <p class="ui-nowrap">收藏简介</p>
+        </div>
+    </li>
+    <li class="ui-border-t">
+        <div class="ui-list-img">
+            <span style="background-image:url(http://placeholder.qiniudn.com/200x136)"></span>
+        </div>
+        <div class="ui-list-info">
+            <h4 class="ui-nowrap">我的收藏2<span class="ui-icon-star"></span></h4>
+            <p class="ui-nowrap">收藏简介</p>
+        </div>
+    </li>
+    <li class="ui-border-t">
+        <div class="ui-list-img">
+            <span style="background-image:url(http://placeholder.qiniudn.com/200x136)"></span>
+        </div>
+        <div class="ui-list-info">
+            <h4 class="ui-nowrap">我的收藏3<span class="ui-icon-star"></span></h4>
+            <p class="ui-nowrap">收藏简介</p>
+        </div>
+    </li>
+    <li class="ui-border-t">
+        <div class="ui-list-img">
+            <span style="background-image:url(http://placeholder.qiniudn.com/200x136)"></span>
+        </div>
+        <div class="ui-list-info">
+            <h4 class="ui-nowrap">我的收藏4<span class="ui-icon-star"></span></h4>
+            <p class="ui-nowrap">收藏简介</p>
+        </div>
+    </li>
+    <li class="ui-border-t">
+        <div class="ui-list-img">
+            <span style="background-image:url(http://placeholder.qiniudn.com/200x136)"></span>
+        </div>
+        <div class="ui-list-info">
+            <h4 class="ui-nowrap">我的收藏5<span class="ui-icon-star"></span></h4>
+            <p class="ui-nowrap">收藏简介</p>
+        </div>
+    </li>
+    <li class="ui-border-t">
+        <div class="ui-list-img">
+            <span style="background-image:url(http://placeholder.qiniudn.com/200x136)"></span>
+        </div>
+        <div class="ui-list-info">
+            <h4 class="ui-nowrap">我的收藏6<span class="ui-icon-star"></span></h4>
+            <p class="ui-nowrap">收藏简介</p>
+        </div>
+    </li>
+</ul>
+</section>
+
+<script>
+    $('#task_list li').click(function(){
+        location.href="task_info.html";
+    });
+    $('#me').click(function(){
+        location.href="me.html";
+    });
+</script>
+
+</body>
+</html>
