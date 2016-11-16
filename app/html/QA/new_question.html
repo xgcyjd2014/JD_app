@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>question</title>
+        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=37342703" charset="UTF-8"></script>
+        <link rel="stylesheet" href="../../common/frozenui-1.3.0/dist/css/frozen.css">
+        <link rel="stylesheet" href="./../../css/style.css">
+       
+        <style type="text/css">
+            
+            .fl{
+                float: left;
+            }
+            .fr{
+                float: right;
+            }
+            .fontclass{
+                color: dimgrey;
+            }
+            .icon-height{
+                height: 32px;
+            }
+            .ui-container{
+                margin-top: 20px;
+            }
+            form div{
+                margin-top: 20px;
+            }
+            form .demo-block .ui-btn-wrap .center{
+                text-align: center;
+            }
+            form .demo-block .ui-btn-wrap .center .ui-btn{
+                width: 40%;
+            }
+            
+            
+            
+        </style>
+    </head>
+    <body ontouchstart>
+        <header class="header ui-header-positive ui-border-b">
+           <i class="ui-icon-return"></i>
+            <h1>提问</h1>
+        </header>
+        
+        <section class="ui-container">
+            <section id="form">
+                <form action="#">
+                    <div class="ui-form-item">
+                        <label>问题</label>
+                        <input type="text" placeholder="单行输入" required>
+                        <a href="#" class="ui-icon-close"></a>
+                    </div>
+                    <div class="ui-form-item ui-form-item-textarea">
+                        <label>具体描述</label>
+                        <textarea placeholder="问题描述"></textarea>
+                    </div>
+                    <div class="ui-form-item">
+                        <label>上传图片</label>
+                        <input type="file" >
+                    </div>
+                    <div class="ui-form-item">
+                        <label>网址</label>
+                        <input type="text" placeholder="请输入网址" pattern="^(http(s)?:\/\/)?(www\.)?[\w-]+\.\w{2,4}(\/)?$">
+                        <a href="#" class="ui-icon-close"></a>
+                    </div>
+                    <div class="demo-block">
+                        <div class="ui-btn-wrap">
+                           <div class="center">
+                                <input type="submit" class="ui-btn" value="上传">
+                                <input type="button" class="ui-btn" onclick="location.href='title.html'" value="查看">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </section>
+        </section>
+        <script type="text/javascript" src="./../../script/api.js"></script>
+        <script type="text/javascript">
+        apiready = function(){
+            var Head = $api.dom("header"),
+            goBack = $api.dom(".ui-icon-return");
+            $api.fixStatusBar(Head);
+
+            api.setStatusBarStyle({
+                style: 'light'
+            });
+
+            $api.addEvt(goBack, 'click', function() {
+                api.historyBack({
+                    frameName: 'login'
+                }, function(ret, err) {
+                    if (!ret.status) {
+                        api.closeWin();
+                    }
+                });
+            });
+        }
+        </script>
+    </body> 
+</html>

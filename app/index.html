@@ -8,14 +8,14 @@
     <link rel="stylesheet" type="text/css" href="common/frozenui-1.3.0/dist/css/frozen.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <style type="text/css">
-    html,body{
+    html, body, #wrap{
         height: 100%;
     }
     
     #main {
         background: rgba(1,1,1,0.1);
+        height: 100%;
     }
-    
 
     footer{
         color: #ccc;
@@ -24,27 +24,27 @@
     footer .active {
         color: #00a5e0;
     }
-
+    
     footer .footer-item i{
         display: block;
-        height: 40px;
+        height: 35px;
         font-size: 25px;
         line-height: 40px;
         text-align: center;
     }
     footer .footer-item div {
-        height: 16px;
-        font-size: 12px;
-        line-height: 16px;
+        height: 21px;
+        font-size: 10px;
+        
     }
     
     </style>
 </head>
 <body>
     <div id="wrap" >
-        <header class="header ui-header-positive ui-border-b">
-            <h1>主页</h1>
-        </header>
+        <section id="main" class="ui-container ui-center">
+            内容
+        </section>
         <footer class="ui-footer ui-footer-stable ui-border-t">
             <ul class="ui-tiled">
                 <li class="footer-item active"><i class="iconfont">&#xe6c1;</i><div>主页</div></li>
@@ -53,41 +53,81 @@
                 <li class="footer-item"><i class="iconfont">&#xe611;</i><div>个人</div></li>
             </ul>
         </footer>
-        <section id="main" class="ui-container ui-center">
-            内容
-        </section>
+        
     </div>
 </body>
 <script type="text/javascript" src="./script/api.js"></script>
 
 <script type="text/javascript">
     apiready = function(){
-        var Head = $api.dom("header");
-        $api.fixStatusBar(Head);
+        var Head = $api.dom(".header"),
+            main = $api.dom("#main");
+            oLi  = $api.domAll("footer ul li");
 
+        $api.fixStatusBar(Head);    
         api.setStatusBarStyle({
-            style: 'dark'
+            style: 'light'
         });
+        var index = 0;
+        var arrPagesHost = ['html/index/main.html', 'html/QA/question.html', 'html/homework/homework.html', 'html/admin/admin.html'],
+            arrPages = [];
+
+        for(var i=0; i < arrPagesHost.length; i++) {
+            arrPages.push({
+                name: 'frame' + i,
+                url: arrPagesHost[i],
+                bgColor: '#fff'
+            });
+            oLi[i].index = i;
+            $api.addEvt(oLi[i], 'click', function() {
+                switchPages(this.index, false);
+            });
+        }
 		
-        api.addEventListener({
-            name:'swipeleft'
-        }, function(ret, err){        
-           return false;
+
+        api.openFrameGroup({
+            name: 'groupIndex',
+            background: '#fff',
+            scrollEnabled: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: api.winHeight - 56
+            },
+            index: 0,
+            frames: arrPages
+        }, function() {
+           
         });
 
-        // api.openFrame({
-        //     name: 'main',
-        //     url: 'html/main.html',
-        //     bounces: true,
-        //     rect: {
-        //         x: 0,
-        //         y: 0,
-        //         w: api.winWidth,
-        //         h: api.winHeight - footerPos.h
-        //     }
-        // });
-        
+        function switchPages(tag, isScroll) {
 
+            api.setFrameGroupIndex({
+                name: "groupIndex",
+                index: tag,
+                scroll: isScroll
+            });
+            for(var i=0; i<oLi.length; i++) {
+                $api.removeCls(oLi[i], 'active');
+            }
+            $api.addCls(oLi[tag], 'active');
+            index=tag;
+        }
+
+        api.addEventListener({
+            name:'swiperight'
+        }, function(ret, err){   
+            if(index <= 0) return;
+            switchPages(index-1, true);
+        });
+
+         api.addEventListener({
+            name:'swipeleft'
+        }, function(ret, err){   
+            if(index >= arrPages.length-1) return;
+            switchPages(index+1, true);
+        });
     };
 </script>
 </html>

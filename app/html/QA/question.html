@@ -4,16 +4,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
-        <title>question</title>
-        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=37342703" charset="UTF-8"></script>
-        <link rel="stylesheet" href="http://frozenui.github.io/frozenui/css/frozen.css">
-        <link rel="stylesheet" href="http://frozenui.github.io/frozenui/demo/demo.css">
-        <script src="http://frozenui.github.io/frozenui/lib/zepto.min.js"></script>
-        <script src="http://frozenui.github.io/frozenui/frozenui/frozen.js"></script>
+        <title>Q&A</title>
+        
+        <link rel="stylesheet" href="../../common/frozenui-1.3.0/dist/css/frozen.css">
+        <link rel="stylesheet" href="./../../css/style.css">
+        
         <style type="text/css">
-            body{    
-                
-                font-family: "黑体";
+            .clear{
+                clear: both;
             }
             .fl{
                 float: left;
@@ -27,80 +25,109 @@
             .icon-height{
                 height: 32px;
             }
-            .ui-container{
-                margin-top: 20px;
+            .ui-container ul{
+               
+                background-color: whitesmoke;
             }
-            form div{
-                margin-top: 20px;
+            .ui-container ui li{
+                margin-top: 10px;
+                margin-left: 0;
+                padding: 10px;
+                background-color: white;
             }
-            form .demo-block .ui-btn-wrap .center{
-                text-align: center;
+            .history-question{
+                height: 90px;
+                line-height: 90px;
             }
-            form .demo-block .ui-btn-wrap .center .ui-btn{
-                width: 40%;
+            .history-question i{
+                margin-top: 23px ;
             }
-            
-            
-            
         </style>
     </head>
     <body ontouchstart>
-        <header class="ui-header ui-header-positive ui-border-b">
-           <i class="ui-icon-return" onclick="history.back()"></i>
-            <h1>提问</h1>
+         <header class="header ui-header-positive ui-border-b">
+            <h1>Q & A</h1>
+            <button class="ui-btn add-question" >提问</button>
         </header>
-        <footer class="ui-footer ui-footer-btn">
-            <ui class="ui-tiled ui-border-t">
-                <li class="ui-border-r">
-                    <i class="ui-icon-home icon-height"></i>
-                    <div class="fontclass">首页</div>
-                </li>
-                <li class="ui-border-r" onclick="location.href='Q&A.html'">
-                    <i class="ui-icon-comment icon-height"></i>
-                    <div class="fontclass">问答</div>
-                </li>
-                <li class="ui-border-r">
-                    <i class="ui-icon-file icon-height"></i>
-                    <div class="fontclass">作业</div>
-                </li>
-                <li class="ui-border-r">
-                    <i class="ui-icon-personal icon-height"></i>
-                    <div class="fontclass">个人中心</div>
-                </li>
-            </ui>
-        </footer>
+       
         <section class="ui-container">
-            <section id="form">
-                <form action="#">
-                    <div class="ui-form-item">
-                        <label>问题</label>
-                        <input type="text" placeholder="单行输入" required>
-                        <a href="#" class="ui-icon-close"></a>
-                    </div>
-                    <div class="ui-form-item ui-form-item-textarea">
-                        <label>具体描述</label>
-                        <textarea placeholder="问题描述"></textarea>
-                    </div>
-                    <div class="ui-form-item">
-                        <label>上传图片</label>
-                        <input type="file" >
-                    </div>
-                    <div class="ui-form-item">
-                        <label>网址</label>
-                        <input type="text" placeholder="请输入网址" pattern="^(http(s)?:\/\/)?(www\.)?[\w-]+\.\w{2,4}(\/)?$">
-                        <a href="#" class="ui-icon-close"></a>
-                    </div>
-                    <div class="demo-block">
-                        <div class="ui-btn-wrap">
-                           <div class="center">
-                                <input type="submit" class="ui-btn" value="上传">
-                                <input type="button" class="ui-btn" onclick="location.href='title.html'" value="查看">
-                            </div>
+            <section id="list">
+                <ul class="ui-list ui-list-link ui-border-tb">
+                    <li>
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
                         </div>
-                    </div>
-                    
-                </form>
+                        <div class="ui-list-info ui-border-t">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <div class="history-question">
+                        <i class="ui-icon-star fl" onclick="location.href='history.html'"></i>
+                        <p>历史回答</p>
+                        <div class="clear"></div>
+                    </div>    
+                    <li>
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
+                        </div>
+                        <div class="ui-list-info ui-border-t">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
+                        </div>
+                        <div class="ui-list-info ui-border-t">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                </ul>
             </section>
         </section>
-    </body> 
+    </body>
+    <script type="text/javascript" src="./../../script/api.js"></script>
+    <script>
+        apiready = function(){
+            var Head    = $api.dom("header"),
+                goBack  = $api.dom(".ui-icon-return"),
+                oList   = $api.domAll("#list ul li"),
+                addQuestion = $api.dom(".add-question");
+                
+            $api.fixStatusBar(Head);
+            api.setStatusBarStyle({
+                style: 'light'
+            });
+
+         
+            $api.addEvt(addQuestion, 'click', function() {
+                api.openWin({
+                    name: 'newQuestion',
+                    url: './new_question.html',
+                    pageParam: {
+                        
+                    }
+                });
+            });
+           
+
+            for( var i=0; i<oList.length; i++ ) {
+
+                $api.addEvt(oList[i], 'click', function() {
+                    api.openWin({
+                        name: 'questionInfo',
+                        url: './questionInfo.html',
+                        pageParam: {
+                            
+                        }
+                    });
+                });
+
+            }
+        }
+          
+    </script>
 </html>

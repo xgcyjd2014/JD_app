@@ -81,25 +81,28 @@
           var login     = $api.dom(".login"),
               register  = $api.dom(".register"),
               Head      = $api.dom("header"),
-              forgetPsw = $api.dom(".info-item forgetPsw"),
-              repeatNum = $api.dom(".info-item lm");
+              forgetPsw = $api.dom(".info-item .forgetPsw"),
+              repeatNum = $api.dom(".info-item .lm");
 
           $api.fixStatusBar(Head);
           
           api.setStatusBarStyle({
-              style: 'dark'
+              style: 'light'
           });
           
           
           // 开发使用，交互将改为ajax
           $api.addEvt(login, 'click', function(){
+            
             api.openWin({
               name: "index",
               url: "index.html",
+              slidBackEnabled:false,
               pageParam : {
 
               }
             });
+
           });
 
           // 跳转注册页面
@@ -107,6 +110,16 @@
             api.openWin({
               name: "register",
               url: "html/register/register.html",
+              pageParam: {
+
+              }
+            });
+          });
+
+          $api.addEvt(forgetPsw, 'click', function() {
+            api.openWin({
+              name: "forgetPsw",
+              url: "html/forgetPsw/retrieve_pwd.html",
               pageParam: {
 
               }
