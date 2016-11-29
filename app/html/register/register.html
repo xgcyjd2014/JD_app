@@ -34,37 +34,37 @@
         <div class="ui-form ui-border-t">
           <form action="#">
             <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="text" placeholder="姓名">
+                <input class="data-name" type="text" placeholder="姓名">
                 <a href="#" class="ui-icon-close"></a>
             </div>
             <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="number" placeholder="学号">
+                <input class="data-number" type="number" placeholder="学号">
                 <a href="#" class="ui-icon-close"></a>
             </div>
             <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="password" placeholder="密码">
+                <input class="data-password" type="password" placeholder="密码">
                 <a href="#" class="ui-icon-close"></a>
             </div>
             <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="password" placeholder="重复密码">
+                <input class="data-repassword" type="password" placeholder="重复密码">
                 <a href="#" class="ui-icon-close"></a>
             </div>
             <div class="ui-form-item ui-form-item-pure  ui-form-item-l ui-border-b">
                 <label class="ui-border-r">
                     中国 +86
                 </label>
-                <input type="number" placeholder="手机号">
+                <input class="data-mobile" type="number" placeholder="手机号">
                 <a href="#" class="ui-icon-close"></a>
             </div>
             <div class="ui-form-item ui-form-item-r ui-border-b">
-                <input type="text" placeholder="请输入验证码">
+                <input class="data-token" type="text" placeholder="请输入验证码">
                 <!-- 若按钮不可点击则添加 disabled 类 -->
-                <button type="button" class="ui-border-l">重新发送</button>
+                <button class="submit-mobile" type="button" class="ui-border-l">发送</button>
                 <a href="#" class="ui-icon-close"></a>
             </div>
           </form>
           <div class="ui-btn-wrap">
-              <button class="ui-btn-lg ui-btn-primary">
+              <button class="ui-btn-lg ui-btn-primary submit">
                   确定
               </button>
           </div>
@@ -74,8 +74,19 @@
       <script type="text/javascript" src="./../../script/api.js"></script>
       <script>
       apiready = function(){
+          var url = "http://192.168.1.8:8080";
           var Head = $api.dom("header"),
             goBack = $api.dom(".ui-icon-return");
+
+          var oName       = $api.dom(".data-name"),
+              oNumber     = $api.dom(".data-number"),
+              oPassword   = $api.dom(".data-password"),
+              oRepassword = $api.dom(".data-repassword"),
+              oMobile     = $api.dom(".data-mobile"),
+              oToken      = $api.dom(".data-token"),
+              oSubmitMobile = $api.dom(".submit-mobile"),
+              oSubmit     = $api.dom(".submit");
+
           $api.fixStatusBar(Head);
 
           api.setStatusBarStyle({
@@ -89,8 +100,78 @@
                 if (!ret.status) {
                     api.closeWin();
                 }
+
             });
           });
+
+          $api.addEvt(oNumber, 'blur', function() {
+              if(oNumber.value) {
+                api.ajax({
+                  url: url+'/xinguan/memberExistServlet',
+                  method: 'get',
+                  data: {
+                      values: {
+                          stuID: oNumber.value
+                      }
+                  }
+                }, function(ret, err) {
+                    if (ret.isExsit == 1) {
+                        alert("该学号已存在");
+                    } else if(ret.isExsit == 0) {
+                        
+                    } 
+                });
+              }
+          });
+
+          $api.addEvt(oSubmitMobile, 'click', function() {
+              
+              if(oMobile.value) {
+                api.ajax({
+                  url: url+'/xinguan/phoneExsitServlet',
+                  method: 'get',
+                  data: {
+                      values: {
+                          stuPhone : oMobile.value
+                      }
+                  }
+                }, function(ret, err) {
+                    if (ret.phoneExsit == 1) {
+                      alert("短信发送成功");
+                    } else if(ret.phoneExsit == 0){
+                      alert("该手机号已注册");
+                    }
+
+                });
+              }
+
+          });
+
+          $api.addEvt(oSubmit,'click', function() {
+
+              api.ajax({
+                  url: url+'/xinguan/RegisterServlet',
+                  method: 'get',
+                  data: {
+                      values: {
+                          stuName: oName.value,
+                          stuID: oNumber.value,
+                          
+                          password: oPassword.value,
+                          stuPhone : oMobile.value,
+                          token: oToken.value
+                      }
+                  }
+                }, function(ret, err) {
+                    if (ret.phoneExsit == 1) {
+                      alert("短信发送成功");
+                    } else if(ret.phoneExsit == 0){
+                      alert("该手机号已注册");
+                    }
+
+                });
+          });
+          
       }
           
       </script>
