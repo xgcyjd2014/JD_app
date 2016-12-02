@@ -31,13 +31,13 @@
             <label class="ui-border-r">
                 中国 +86
             </label>
-            <input type="number" placeholder="手机号">
+            <input class="mobile" type="number" placeholder="手机号">
             <a href="#" class="ui-icon-close"></a>
         </div>
         <div class="ui-form-item ui-form-item-r ui-border-b">
-            <input type="text" placeholder="请输入验证码">
+            <input class="mobile-token" type="text" placeholder="请输入验证码">
             <!-- 若按钮不可点击则添加 disabled 类 -->
-            <button type="button" class="ui-border-l">重新发送</button>
+            <button class="mobile-count" type="button" class="ui-border-l">发送</button>
             <a href="#" class="ui-icon-close"></a>
         </div>
         <div class="ui-btn-wrap" style="margin-top: 30px;">
@@ -49,9 +49,13 @@
       <script type="text/javascript" src="./../../script/api.js"></script>
       <script>
       apiready = function(){
+          var url = "http://192.168.1.6:8080";
           var   Head = $api.dom("header"),
               goBack = $api.dom(".ui-icon-return"),
-           btnSubmit = $api.dom(".btn_submit");
+           btnSubmit = $api.dom(".btn_submit"),
+           oSubmitMobile = $api.dom(".mobile-count"),
+              mobileNum = $api.dom(".mobile"),
+            mobileToken = $api.dom(".mobile-token");
 
           $api.fixStatusBar(Head);
 
@@ -69,15 +73,78 @@
             });
           });
 
-          $api.addEvt(btnSubmit, 'click', function() {
-            api.openWin({
-              name: "new_pwd",
-              url: "new_pwd.html",
-              
-              pageParam: {
+          $api.addEvt(oSubmitMobile, 'click', ajaxMobile);
 
-              } 
-            });
+          function ajaxMobile() {
+            if(mobileNum.value) {
+              api.ajax({
+                url: url + '/xinguan/ForgetPassSendServlet',
+                     method: 'post',
+                     data: {
+                         values: {
+                             phonenum: mobileNum.value
+                         }
+                     }
+                 }, function(ret, err) {
+                     if (ret.forgetSendStatus == 0) {
+                        alert("该手机尚未注册，请先注册");
+                     } else if(ret.forgetSendStatus == 1){
+                        phoneIsExsit();
+                        return ;                        
+                     }
+              });
+            }
+          }
+
+          function phoneIsExsit() {
+            $api.rmEvt(oSubmitMobile, 'click', ajaxMobile);
+
+            oSubmitMobile.innerHTML = "重新发送(60)"
+            oSubmitMobile.style.color = "#ccc";
+            var num = 60;
+            var timer = setInterval(function() {
+              num--;
+              if(num > 0) {
+                oSubmitMobile.innerHTML = "重新发送(" + num + ")";
+                
+              }else {
+                clearInterval(timer);
+                oSubmitMobile.innerHTML = "发送"
+                oSubmitMobile.style.color = "";
+                $api.addEvt(oSubmitMobile, 'click', ajaxMobile);
+              }
+              
+            },1000);
+          }
+
+
+          $api.addEvt(btnSubmit, 'click', function() {
+            if(mobileToken.value && mobileNum.value) {
+              api.ajax({
+              url: url + '/xinguan/ForgetPassServlet',
+                   method: 'post',
+                   data: {
+                       values: {
+                           token: mobileToken.value
+                       }
+                   }
+               }, function(ret, err) {
+                   
+                   if (ret.forgetStatus == 1) {
+                      api.openWin({
+                        name: "new_pwd",
+                        url: "new_pwd.html",
+                        pageParam: {
+                            phoneName:  mobileToken.value
+                        } 
+                      });
+                   } else if(ret.forgetStatus == 0){
+                      alert("验证码错误");                       
+                   }
+              });
+            }
+            
+            
           });
       }
       </script>

@@ -62,12 +62,12 @@
                             <p class="ui-nowrap">基地入门常用的基本回答</p>
                         </div>
                     </li>
-                    <div class="history-question">
+                    <div class="history-question ui-border-t">
                         <i class="ui-icon-star fl" onclick="location.href='history.html'"></i>
                         <p>历史回答</p>
                         <div class="clear"></div>
                     </div>    
-                    <li>
+                    <li class="ui-border-t">
                         <div class="ui-avatar">
                             <span style="background-color:#ccc;"></span>
                         </div>
@@ -97,6 +97,7 @@
                 oList   = $api.domAll("#list ul li"),
                 addQuestion = $api.dom(".add-question");
                 
+
             $api.fixStatusBar(Head);
             api.setStatusBarStyle({
                 style: 'light'
@@ -108,7 +109,7 @@
                     name: 'newQuestion',
                     url: './new_question.html',
                     pageParam: {
-                        
+
                     }
                 });
             });
@@ -125,8 +126,9 @@
                         }
                     });
                 });
-
             }
+
+            
         }
           
     </script>
