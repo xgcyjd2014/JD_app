@@ -74,7 +74,7 @@
       <script type="text/javascript" src="./../../script/api.js"></script>
       <script>
       apiready = function(){
-          var url = "http://192.168.1.8:8080";
+          var url = "http://192.168.1.6:8080";
           var Head = $api.dom("header"),
             goBack = $api.dom(".ui-icon-return");
 
@@ -124,11 +124,12 @@
               }
           });
 
-          $api.addEvt(oSubmitMobile, 'click', function() {
-              
-              if(oMobile.value) {
+          $api.addEvt(oSubmitMobile, 'click', ajaxMobile);
+
+          function ajaxMobile() {
+            if(oMobile.value) {
                 api.ajax({
-                  url: url+'/xinguan/phoneExsitServlet',
+                  url: url+'/xinguan/TokenSendServlet',
                   method: 'get',
                   data: {
                       values: {
@@ -137,15 +138,34 @@
                   }
                 }, function(ret, err) {
                     if (ret.phoneExsit == 1) {
-                      alert("短信发送成功");
+                      phoneIsExsit();
                     } else if(ret.phoneExsit == 0){
                       alert("该手机号已注册");
                     }
-
                 });
               }
+          }
 
-          });
+          function phoneIsExsit() {
+            $api.rmEvt(oSubmitMobile, 'click', ajaxMobile);
+
+            oSubmitMobile.innerHTML = "重新发送(60)"
+            oSubmitMobile.style.color = "#ccc";
+            var num = 60;
+            var timer = setInterval(function() {
+              num--;
+              if(num > 0) {
+                oSubmitMobile.innerHTML = "重新发送(" + num + ")";
+                
+              }else {
+                clearInterval(timer);
+                oSubmitMobile.innerHTML = "发送"
+                oSubmitMobile.style.color = "";
+                $api.addEvt(oSubmitMobile, 'click', ajaxMobile);
+              }
+              
+            },1000);
+          }
 
           $api.addEvt(oSubmit,'click', function() {
 
@@ -156,17 +176,21 @@
                       values: {
                           stuName: oName.value,
                           stuID: oNumber.value,
-                          
                           password: oPassword.value,
                           stuPhone : oMobile.value,
                           token: oToken.value
                       }
                   }
                 }, function(ret, err) {
-                    if (ret.phoneExsit == 1) {
-                      alert("短信发送成功");
-                    } else if(ret.phoneExsit == 0){
-                      alert("该手机号已注册");
+                    if (ret.regStatus == 1) {
+                      api.openWin({
+                        name: "index",
+                        url: "./../../index.html",
+                        slidBackEnabled:false,
+                        pageParam : {}
+                      });
+                    } else if(ret.regStatus == 0){
+                      alert("验证码错误");
                     }
 
                 });

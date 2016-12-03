@@ -48,42 +48,50 @@
         
         <section class="ui-container">
             <section id="form">
-                <form action="#">
-                    <div class="ui-form-item">
+                <form action="#" enctype="multipart/form-data" method="post" name="fileinfo">
+                    <div class="ui-form-item ui-border-b">
                         <label>问题</label>
-                        <input type="text" placeholder="单行输入" required>
+                        <input type="text" class="form-title" placeholder="单行输入" required>
                         <a href="#" class="ui-icon-close"></a>
                     </div>
-                    <div class="ui-form-item ui-form-item-textarea">
-                        <label>具体描述</label>
-                        <textarea placeholder="问题描述"></textarea>
-                    </div>
-                    <div class="ui-form-item">
+                    <div class="ui-form-item ui-border-b">
                         <label>上传图片</label>
-                        <input type="file" >
+                        <input class="image-url" type="file">
                     </div>
-                    <div class="ui-form-item">
-                        <label>网址</label>
-                        <input type="text" placeholder="请输入网址" pattern="^(http(s)?:\/\/)?(www\.)?[\w-]+\.\w{2,4}(\/)?$">
-                        <a href="#" class="ui-icon-close"></a>
+
+                    <div class="ui-form-item ui-form-item-textarea ui-border-b">
+                        <label>具体描述</label>
+                        <textarea class="form-content" placeholder="问题描述"></textarea>
                     </div>
-                    <div class="demo-block">
+                    
+                    
+                    <div class="demo-block ">
                         <div class="ui-btn-wrap">
                            <div class="center">
-                                <input type="submit" class="ui-btn" value="上传">
-                                <input type="button" class="ui-btn" onclick="location.href='title.html'" value="查看">
+                                <button class="ui-btn form-submit">上传</button>
+                                <button class="ui-btn">查看</button>
                             </div>
                         </div>
                     </div>
-                    
                 </form>
             </section>
         </section>
         <script type="text/javascript" src="./../../script/api.js"></script>
         <script type="text/javascript">
         apiready = function(){
+
+            var url = 'http://192.168.1.6:8080';
+
             var Head = $api.dom("header"),
-            goBack = $api.dom(".ui-icon-return");
+              goBack = $api.dom(".ui-icon-return"),
+              oTitle = $api.dom(".form-title"),
+           oCcontent = $api.dom(".form-content"),
+           imageUrl  = $api.dom(".image-url");
+            oSubmit  = $api.dom(".form-submit");
+
+            var oData = new FormData($api.dom("#form from"));
+            
+
             $api.fixStatusBar(Head);
 
             api.setStatusBarStyle({
@@ -98,6 +106,37 @@
                         api.closeWin();
                     }
                 });
+            });
+
+            $api.addEvt(oSubmit, "click", function() {
+                alert({ msg: JSON.stringify(oData) });
+                api.ajax({
+                    url: url + "/xinguan/fileupload",
+                    method: 'post',
+                    headers: {
+                        'Content-Type' : 'multipart/form-data;boundary=------------95279527'
+                    } 
+                    // data: {
+                    //     values: { 
+                    //         title: oTitle.value,
+                    //         content: oCcontent.value,
+                    //     },
+                    //     files: {
+                    //         path: imageUrl.value
+                    //     }
+                    // }
+                    data: {
+                        values: oData
+                    }
+                },function(ret, err){
+                    alert({ msg: JSON.stringify(ret) });
+                    if(ret.quizStatus == 1) {
+                        alert("发送成功");
+                    }  else if(ret.quizStatus == 0) {
+                        alert("发送失败");
+                    }
+                });
+
             });
         }
         </script>

@@ -108,14 +108,19 @@
           
           // 开发使用，交互将改为ajax
           $api.addEvt(login, 'click', function(){
-            
+            // api.openWin({
+            //               name: "index",
+            //               url: "index.html",
+            //               slidBackEnabled:false,
+            //               pageParam : {}
+            //             });
             if(!oNumber.value) {
                 alert("用户名不能为空");
             }else if(!oPsw.value) {
                 alert("密码不能为空");
             }else {
               api.ajax({
-                  url: 'http://192.168.1.8:8080/xinguan/LoginServlet',
+                  url: 'http://192.168.1.6:8080/xinguan/LoginServlet',
                   method: 'get',
                   data: {
                       values: {

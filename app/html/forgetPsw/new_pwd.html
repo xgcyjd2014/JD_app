@@ -28,11 +28,11 @@
       </header>
       <section class="ui-container">
         <div class="ui-form-item ui-form-item-pure ui-border-b">
-            <input type="password" placeholder="密码">
+            <input class="password" type="password" placeholder="密码">
             <a href="#" class="ui-icon-close"></a>
         </div>
         <div class="ui-form-item ui-form-item-pure ui-border-b">
-            <input type="password" placeholder="重复密码">
+            <input class="re-password" type="password" placeholder="重复密码">
             <a href="#" class="ui-icon-close"></a>
         </div>
         <div class="ui-btn-wrap" style="margin-top: 30px;">
@@ -44,9 +44,13 @@
       <script type="text/javascript" src="./../../script/api.js"></script>
       <script>
       apiready = function(){
+          var url = "http://192.168.1.6:8080";
           var Head = $api.dom("header"),
             goBack = $api.dom(".ui-icon-return"),
-            login  = $api.dom(".login");
+            login  = $api.dom(".login"),
+            pwd    = $api.dom(".password"),
+            RePwd  = $api.dom(".re-password");
+
           $api.fixStatusBar(Head);
 
           api.setStatusBarStyle({
@@ -65,14 +69,35 @@
           });
 
           $api.addEvt(login, 'click', function() {
-            api.openWin({
-              name: "index",
-              url: "../../index.html",
-              slidBackEnabled:false,
-              pageParam: {
 
+            
+              if(pwd.value && RePwd.value && (pwd.value == pwd.value)) {
+                api.ajax({
+                  url: url + '/xinguan/ResetPassServlet',
+                       method: 'post',
+                       data: {
+                           values: {
+                               password_new: RePwd.value
+                               // phoneName: api.pageParam.phoneName
+                           }
+                       }
+                   }, function(ret, err) {
+                       if (ret.resetStatus == 1) {
+                          alert("修改成功!");
+                          api.openWin({
+                            name: "index",
+                            url: "../../index.html",
+                            slidBackEnabled:false,
+                            pageParam: {
+                            }
+                          });
+                       } else if(ret.resetStatus == 2){
+                                               
+                       }
+                });
               }
-            });
+            
+            
           });
       }
       </script>
