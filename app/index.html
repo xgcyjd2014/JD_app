@@ -16,7 +16,22 @@
         background: rgba(1,1,1,0.1);
         height: 100%;
     }
+    
+    .y-ui-header {
+        width: 100%;
+        z-index: 100;
 
+        padding: 0 10px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        line-height: 45px;
+        background-color: #1d8ae7;
+    }
+
+    .y-ui-header h1 {
+        text-align: center;
+        font-size: 18px;
+    }
     footer{
         color: #ccc;
     }
@@ -42,9 +57,14 @@
 </head>
 <body>
     <div id="wrap" >
-        <section id="main" class="ui-container ui-center">
-            内容
-        </section>
+
+        <header class="y-ui-header ui-header-positive ">
+            <h1>标题</h1>
+        </header>
+
+        <!-- <section id="main" class="ui-container ui-center">
+            
+        </section> -->
         <footer class="ui-footer ui-footer-stable ui-border-t">
             <ul class="ui-tiled">
                 <li class="footer-item active"><i class="iconfont">&#xe6c1;</i><div>主页</div></li>
@@ -60,14 +80,22 @@
 
 <script type="text/javascript">
     apiready = function(){
-        var Head = $api.dom(".header"),
+        var Head = $api.dom("header"),
             main = $api.dom("#main");
             oLi  = $api.domAll("footer ul li");
+
+        
+
+       
 
         $api.fixStatusBar(Head);    
         api.setStatusBarStyle({
             style: 'light'
         });
+
+        var headerOffset = $api.offset(Head);
+        var headerHeight = headerOffset.h;
+
         var index = 0;
         var arrPagesHost = ['html/index/main.html', 'html/QA/question.html', 'html/homework/homework.html', 'html/admin/admin.html'],
             arrPages = [];
@@ -80,7 +108,9 @@
             });
             oLi[i].index = i;
             $api.addEvt(oLi[i], 'click', function() {
+
                 switchPages(this.index, false);
+                
             });
         }
 		
@@ -91,18 +121,20 @@
             scrollEnabled: false,
             rect: {
                 x: 0,
-                y: 0,
+                y: headerHeight,
                 w: 'auto',
-                h: api.winHeight - 56
+                h: api.winHeight - 56 -headerHeight
             },
+            preload: 4,
+            bounces:true, 
             index: 0,
-            frames: arrPages
+            frames: arrPages,
+            customRefreshHeader: "customRefreshHeader"
         }, function() {
            
         });
 
         function switchPages(tag, isScroll) {
-
             api.setFrameGroupIndex({
                 name: "groupIndex",
                 index: tag,
@@ -115,20 +147,10 @@
             index=tag;
         }
 
-        api.addEventListener({
-            name:'swiperight'
-        }, function(ret, err){   
-            if(index <= 0) return;
-            switchPages(index-1, true);
-        });
 
-         api.addEventListener({
-            name:'swipeleft'
-        }, function(ret, err){   
-            if(index >= arrPages.length-1) return;
-            switchPages(index+1, true);
-        });
+        function switchHeader(tag) {
 
+        }
         
     };
 </script>

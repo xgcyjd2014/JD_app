@@ -109,24 +109,18 @@
             });
 
             $api.addEvt(oSubmit, "click", function() {
-                alert({ msg: JSON.stringify(oData) });
+                alert({ msg: JSON.stringify(imageUrl.value) });
                 api.ajax({
                     url: url + "/xinguan/fileupload",
                     method: 'post',
-                    headers: {
-                        'Content-Type' : 'multipart/form-data;boundary=------------95279527'
-                    } 
-                    // data: {
-                    //     values: { 
-                    //         title: oTitle.value,
-                    //         content: oCcontent.value,
-                    //     },
-                    //     files: {
-                    //         path: imageUrl.value
-                    //     }
-                    // }
                     data: {
-                        values: oData
+                        values: { 
+                            title: oTitle.value,
+                            content: oCcontent.value,
+                        },
+                        files: {    
+                            path: imageUrl.value
+                        }
                     }
                 },function(ret, err){
                     alert({ msg: JSON.stringify(ret) });

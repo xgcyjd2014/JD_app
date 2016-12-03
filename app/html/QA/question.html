@@ -29,11 +29,17 @@
                
                 background-color: whitesmoke;
             }
-            .ui-container ui li{
+            .ui-container ul li{
                 margin-top: 10px;
                 margin-left: 0;
                 padding: 10px;
                 background-color: white;
+            }
+            .ui-container ul .ui-avatar span {
+                text-align: center;
+                font-size: 25px;
+                color: #fff;
+                line-height: 50px;
             }
             .history-question{
                 height: 90px;
@@ -45,42 +51,84 @@
         </style>
     </head>
     <body ontouchstart>
-         <header class="header ui-header-positive ui-border-b">
+        <!-- <header class="header ui-header-positive ui-border-b">
             <h1>Q & A</h1>
             <button class="ui-btn add-question" >提问</button>
-        </header>
+        </header> -->
        
         <section class="ui-container">
             <section id="list">
                 <ul class="ui-list ui-list-link ui-border-tb">
-                    <li>
+                    
+                    <li class="ui-border-b">
                         <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
+                            <span style="background-color:#ccc;">我</span>
                         </div>
-                        <div class="ui-list-info ui-border-t">
+                        <div class="ui-list-info ">
                             <h4 class="ui-nowrap">入门常识</h4>
                             <p class="ui-nowrap">基地入门常用的基本回答</p>
                         </div>
                     </li>
-                    <div class="history-question ui-border-t">
-                        <i class="ui-icon-star fl" onclick="location.href='history.html'"></i>
-                        <p>历史回答</p>
-                        <div class="clear"></div>
-                    </div>    
-                    <li class="ui-border-t">
+                    <li class="ui-border-b">
                         <div class="ui-avatar">
                             <span style="background-color:#ccc;"></span>
                         </div>
-                        <div class="ui-list-info ui-border-t">
+                        <div class="ui-list-info ">
                             <h4 class="ui-nowrap">入门常识</h4>
                             <p class="ui-nowrap">基地入门常用的基本回答</p>
                         </div>
                     </li>
-                    <li>
+
+                    <li class="ui-border-b">
                         <div class="ui-avatar">
                             <span style="background-color:#ccc;"></span>
                         </div>
-                        <div class="ui-list-info ui-border-t">
+                        <div class="ui-list-info ">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <li class="ui-border-b">
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
+                        </div>
+                        <div class="ui-list-info ">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <li class="ui-border-b">
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
+                        </div>
+                        <div class="ui-list-info ">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <li class="ui-border-b">
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
+                        </div>
+                        <div class="ui-list-info ">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <li class="ui-border-b">
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
+                        </div>
+                        <div class="ui-list-info ">
+                            <h4 class="ui-nowrap">入门常识</h4>
+                            <p class="ui-nowrap">基地入门常用的基本回答</p>
+                        </div>
+                    </li>
+                    <li class="ui-border-b">
+                        <div class="ui-avatar">
+                            <span style="background-color:#ccc;"></span>
+                        </div>
+                        <div class="ui-list-info ">
                             <h4 class="ui-nowrap">入门常识</h4>
                             <p class="ui-nowrap">基地入门常用的基本回答</p>
                         </div>
@@ -92,8 +140,10 @@
     <script type="text/javascript" src="./../../script/api.js"></script>
     <script>
         apiready = function(){
+            var url = 'http://192.168.1.6:8080';
             var Head    = $api.dom("header"),
                 goBack  = $api.dom(".ui-icon-return"),
+                oUl     = $api.dom("#list ul");
                 oList   = $api.domAll("#list ul li"),
                 addQuestion = $api.dom(".add-question");
                 
@@ -115,20 +165,79 @@
             });
            
 
-            for( var i=0; i<oList.length; i++ ) {
-
-                $api.addEvt(oList[i], 'click', function() {
-                    api.openWin({
-                        name: 'questionInfo',
-                        url: './questionInfo.html',
-                        pageParam: {
+            // for( var i=0; i<oList.length; i++ ) {
+            //     $api.addEvt(oList[i], 'click', function() {
+            //         api.openWin({
+            //             name: 'questionInfo',
+            //             url: './questionInfo.html',
+            //             pageParam: {
                             
-                        }
-                    });
+            //             }
+            //         });
+            //     });
+            // }
+
+            api.addEventListener({
+                name: "swipedown"
+            }, function() {
+                api.refreshHeaderLoading();
+            });
+
+            api.setCustomRefreshHeaderInfo({
+                bgColor: '#C0C0C0',
+                image: {
+                    icon: 'widget://image/refresh/miao.png',
+                    borderColor: '#f00'
+                }
+            }, function() {       
+                
+            });
+
+            api.addEventListener({
+                name:"tap"
+            }, function() {
+                api.ajax({
+                  url: url + '/xinguan/NewQuesServlet',
+                  method: 'get',
+                  data: {
+                      values: {
+                          
+                      }
+                  }
+                }, function(ret, err) {
+                    refSuccess(ret);
                 });
+            });
+
+            function refSuccess(data) {
+                var rLi = '';
+                
+                rLi = parseHTML(data);
+
+                $api.html(oUl,'');
+                $api.append(oUl, sLi);
+            }
+
+            function moreSuccess(data) {
+                var mLi = '';
+
+                mLi = parseHTML(data);
+
+                $api.append(oUl, mLi);
             }
 
             
+
+            function parseHTML(data) {
+                var str = '';
+
+                for(var i=0; i<(data.ques).length; i++) {
+                    str += '<li class="ui-border-b"><div class="ui-avatar"><span style="background-color:#ccc;">'+(data.mem[i].memberName).slice(0,1)+'</span></div><div class="ui-list-info "><h4 class="ui-nowrap">'+data.ques[i].quesTitle+'</h4><p class="ui-nowrap">'+data.ques[i].quesContent+'</p></div></li>'
+                }
+
+                return str;
+            }
+
         }
           
     </script>
