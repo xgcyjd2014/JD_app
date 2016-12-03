@@ -50,12 +50,6 @@
             var Head = $api.dom("header"),
                 goBack = $api.dom(".ui-icon-return");
 
-            $api.fixStatusBar(Head);
-
-            api.setStatusBarStyle({
-                style: 'light'
-            });
-         
 
             $api.addEvt(goBack, 'click', function() {
                 api.historyBack({

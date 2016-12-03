@@ -48,6 +48,8 @@
             .history-question i{
                 margin-top: 23px ;
             }
+
+
         </style>
     </head>
     <body ontouchstart>
@@ -141,18 +143,18 @@
     <script>
         apiready = function(){
             var url = 'http://192.168.1.6:8080';
-            var Head    = $api.dom("header"),
-                goBack  = $api.dom(".ui-icon-return"),
+            var goBack  = $api.dom(".ui-icon-return"),
                 oUl     = $api.dom("#list ul");
                 oList   = $api.domAll("#list ul li"),
                 addQuestion = $api.dom(".add-question");
                 
+            var pages = 1;
 
-            $api.fixStatusBar(Head);
             api.setStatusBarStyle({
                 style: 'light'
             });
 
+            refSuccess();
          
             $api.addEvt(addQuestion, 'click', function() {
                 api.openWin({
@@ -177,11 +179,11 @@
             //     });
             // }
 
-            api.addEventListener({
-                name: "swipedown"
-            }, function() {
-                api.refreshHeaderLoading();
-            });
+            // api.addEventListener({
+            //     name: "swipedown"
+            // }, function() {
+            //     api.refreshHeaderLoading();
+            // });
 
             api.setCustomRefreshHeaderInfo({
                 bgColor: '#C0C0C0',
@@ -190,52 +192,79 @@
                     borderColor: '#f00'
                 }
             }, function() {       
-                
+                refSuccess();
             });
 
-            api.addEventListener({
-                name:"tap"
-            }, function() {
+
+            
+            function refSuccess() {
+                
                 api.ajax({
-                  url: url + '/xinguan/NewQuesServlet',
+                    url: url + '/xinguan/NewQuesServlet',
+                    method: 'get',
+                    data: {
+                        values: {
+                              
+                        }
+                    }
+                }, function(ret, err) {
+                    var rLi = '';
+                
+                    rLi = parseHTML(ret);
+
+                    $api.html(oUl,'');
+                    $api.append(oUl, rLi);
+                    
+                    pages = 1;
+                    api.refreshHeaderLoadDone();
+                });
+            }
+
+
+            // 上拉加载更多
+            api.addEventListener({
+                name:'scrolltobottom',
+                extra:{
+                    threshold:500            //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err){        
+              
+                moreSuccess();
+            });
+
+            function moreSuccess() {
+                pages++;
+                api.ajax({
+                  url: url + '/xinguan/NextPageServlet',
                   method: 'get',
                   data: {
                       values: {
-                          
+                          currentpage: pages
                       }
                   }
                 }, function(ret, err) {
-                    refSuccess(ret);
+                    var mLi = '';
+
+                    mLi = parseHTML(ret);
+
+                    $api.append(oUl, mLi);
                 });
-            });
-
-            function refSuccess(data) {
-                var rLi = '';
-                
-                rLi = parseHTML(data);
-
-                $api.html(oUl,'');
-                $api.append(oUl, sLi);
             }
-
-            function moreSuccess(data) {
-                var mLi = '';
-
-                mLi = parseHTML(data);
-
-                $api.append(oUl, mLi);
-            }
-
-            
 
             function parseHTML(data) {
                 var str = '';
 
-                for(var i=0; i<(data.ques).length; i++) {
-                    str += '<li class="ui-border-b"><div class="ui-avatar"><span style="background-color:#ccc;">'+(data.mem[i].memberName).slice(0,1)+'</span></div><div class="ui-list-info "><h4 class="ui-nowrap">'+data.ques[i].quesTitle+'</h4><p class="ui-nowrap">'+data.ques[i].quesContent+'</p></div></li>'
+                for(var i=0; i<(data.list).length; i++) {
+                    str += '<li class="ui-border-b"><div class="ui-avatar"><span style="background-color:#ccc;">'+(data.list[i].memberName).slice(0,1)+'</span></div><div class="ui-list-info "><h4 class="ui-nowrap">'+data.list[i].quesTitle+'</h4><p class="ui-nowrap">'+data.list[i].quesContent+'</p></div></li>'
                 }
 
                 return str;
+            }
+
+
+            //  事件委托，跳转
+            function liOpenWin() {
+
             }
 
         }
