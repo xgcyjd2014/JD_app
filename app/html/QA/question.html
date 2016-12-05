@@ -142,12 +142,13 @@
     <script type="text/javascript" src="./../../script/api.js"></script>
     <script>
         apiready = function(){
-            var url = 'http://192.168.1.6:8080';
+
+            var url = 'http://192.168.1.7:8080';
             var goBack  = $api.dom(".ui-icon-return"),
                 oUl     = $api.dom("#list ul");
                 oList   = $api.domAll("#list ul li"),
                 addQuestion = $api.dom(".add-question");
-                
+               
             var pages = 1;
 
             api.setStatusBarStyle({
@@ -195,7 +196,6 @@
                 refSuccess();
             });
 
-
             
             function refSuccess() {
                 
@@ -217,6 +217,7 @@
                     
                     pages = 1;
                     api.refreshHeaderLoadDone();
+                    liOpenWin();
                 });
             }
 
@@ -255,16 +256,47 @@
                 var str = '';
 
                 for(var i=0; i<(data.list).length; i++) {
-                    str += '<li class="ui-border-b"><div class="ui-avatar"><span style="background-color:#ccc;">'+(data.list[i].memberName).slice(0,1)+'</span></div><div class="ui-list-info "><h4 class="ui-nowrap">'+data.list[i].quesTitle+'</h4><p class="ui-nowrap">'+data.list[i].quesContent+'</p></div></li>'
+                    str += '<li data-quesId="'+data.list[i].quesID+'"class="ui-border-b"><div class="ui-avatar"><span style="background-color:#ccc;">'+(data.list[i].memberName).slice(0,1)+'</span></div><div class="ui-list-info "><h4 class="ui-nowrap">'+data.list[i].quesTitle+'</h4><p class="ui-nowrap">'+data.list[i].quesContent+'</p></div></li>'
                 }
 
                 return str;
             }
 
-
             //  事件委托，跳转
+            
             function liOpenWin() {
+                // $api.addEvt(oUl, 'click', function(evt) {
+                    
+                //     var target = evt.target;
+                    
+                //     if(target.nodeName.toLowerCase() == 'li') {
+                //         // api.openWin({
+                //         //     name: 'questionInfo',
+                //         //     url: './questionInfo.html',
+                //         //     pageParam: {
 
+                //         //     }
+                //         // });
+                //         alert("li");
+                        
+                //     } 
+
+                // }, false);
+
+                var aLi = oUl.childNodes;
+                for(var i=0; i<aLi.length; i++) {
+                    $api.addEvt(aLi[i], 'click', function() {
+                        api.openWin({
+                            name: 'questionInfo',
+                            url: './questionInfo.html',
+                            pageParam: {
+                                quesId: $api.attr(this, 'data-quesId'),
+                                quesTitle: this.querySelector('h4').innerHTML,
+                                quesContent: this.querySelector('p').innerHTML
+                            }
+                        });
+                    });   
+                }
             }
 
         }

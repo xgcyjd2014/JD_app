@@ -106,50 +106,45 @@
               style: 'light'
           });
           
-          // // 开发使用，交互将改为ajax
-          // $api.addEvt(login, 'click', function(){
+          // 开发使用，交互将改为ajax
+          $api.addEvt(login, 'click', function(){
 
-          //   // api.openWin({
-          //   //               name: "index",
-          //   //               url: "index.html",
-          //   //               slidBackEnabled:false,
-          //   //               pageParam : {}
-          //   //             });
-          //   if(!oNumber.value) {
-          //       alert("用户名不能为空");
-          //   }else if(!oPsw.value) {
-          //       alert("密码不能为空");
-          //   }else {
+            
+            if(!oNumber.value) {
+                alert("用户名不能为空");
+            }else if(!oPsw.value) {
+                alert("密码不能为空");
+            }else {
               
-          //     api.ajax({
-          //         url: 'http://192.168.1.6:8080/xinguan/LoginServlet',
-          //         method: 'get',
-          //         data: {
-          //             values: {
-          //                 stuID: oNumber.value,
-          //                 password: oPsw.value
-          //             }
-          //         }
-          //       }, function(ret, err) {
-          //           alert(ret);
-          //           if (ret.loginStatus == 2) {
+              api.ajax({
+                  url: 'http://192.168.1.7:8080/xinguan/LoginServlet',
+                  method: 'get',
+                  data: {
+                      values: {
+                          stuID: oNumber.value,
+                          password: oPsw.value
+                      }
+                  }
+                }, function(ret, err) {
+                    alert(ret);
+                    if (ret.loginStatus == 2) {
                         api.openWin({
                           name: "index",
                           url: "index.html",
                           slidBackEnabled:false,
                           pageParam : {}
                         });
-          //           } else if(ret.loginStatus == 1) {
-          //               alert("密码错误");
-          //           } else if(ret.loginStatus  == 0) {
-          //               alert("用户未注册");
-          //           }
-          //     });
-          //   }
+                    } else if(ret.loginStatus == 1) {
+                        alert("密码错误");
+                    } else if(ret.loginStatus  == 0) {
+                        alert("用户未注册");
+                    }
+              });
+            }
 
             
 
-          // });
+          });
                  
 
                     // var dia=$.dialog({

@@ -35,12 +35,12 @@
         </style>
     </head>
     <body>
-    
-        <header class="header ui-header-positive ui-border-b">
-            <i class="ui-icon-return" onclick="history.back()"></i>
-            <h1>题目(根据帖子内容自拟)</h1>
-            <i class="ui-icon-star"></i>
-        </header>
+            <header class="header ui-header-positive ui-border-b">
+                <i class="ui-icon-return" onclick="history.back()"></i>
+                <h1>题目(根据帖子内容自拟)</h1>
+                <i class="ui-icon-star"></i>
+            </header>
+        
 
            
 
@@ -50,13 +50,13 @@
                         <div class="ui-list-thumb ui-avatar">
                             <span style="background-color: #ccc;"></span>
                         </div>
-                        <div class="ui-list-info">
-                            <a>用户名</a>
+                        <div class="ui-list-info ques-title">
+                            <a></a>
                         </div>
                     </li>
                 </ul>
-                <section class="article">
-                    内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                <section class="article ques-content">
+                    
                 </section>
                 
                 <i class="ui-icon-like like"></i>
@@ -64,13 +64,27 @@
         <script type="text/javascript" src="./../../script/api.js"></script>
         <script>
             apiready = function(){
-                var Head = $api.dom("header"),
-                    goBack = $api.dom(".ui-icon-return");
+                var url = "http://192.168.1.7:8080";
+
+                var Head     = $api.dom("header"),
+                    goBack   = $api.dom(".ui-icon-return"),
+                    oContent = $api.dom(".ques-content"),
+                    oTitle   = $api.dom(".ques-title a");
+
+                oContent.innerHTML = api.pageParam.quesContent;
+                oTitle.innerHTML = api.pageParam.quesTitle;
+
+
+                var pages = 1; 
+
                 $api.fixStatusBar(Head);
 
                 api.setStatusBarStyle({
                     style: 'light'
                 });
+
+                //  加载完成发送ajax
+                // initAjax();
 
                 $api.addEvt(goBack, 'click', function() {
                     api.historyBack({
@@ -82,8 +96,45 @@
                     });
                 });
 
+                api.addEventListener({
+                    name: 'tap'
+                },function() {
+                    initAjax();
+                });
 
-            }
+                // 加载完成发送ajax
+                function initAjax() {
+                    api.ajax({
+                        url: url + '/xinguan/ReplyListServlet',
+                        method: 'post',
+                        data: {
+                            values: { 
+                                // quesID: api.pageParam.quesId,
+                                quesID: 12,
+                                currentPage: pages
+                            }
+                        }
+                    },function(ret, err){
+                        api.alert({msg: JSON.stringify(ret)});
+                        
+                    });
+                }
+
+
+                //  function
+
+                api.addEventListener({
+                    name: "shake"
+                }, function() {
+                    api.openWin({
+                        name: "new_answer",
+                        url: "./new_answer.html",
+                        pageParam: {
+                            quesID: 12
+                        }
+                    });
+                });
+            }   
                 
         </script>
 

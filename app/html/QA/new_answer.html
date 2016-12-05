@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>添加回答</title>
+        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=37342703" charset="UTF-8"></script>
+        <link rel="stylesheet" href="../../common/frozenui-1.3.0/dist/css/frozen.css">
+        <link rel="stylesheet" href="./../../css/style.css">
+       
+        <style type="text/css">
+            
+            .fl{
+                float: left;
+            }
+            .fr{
+                float: right;
+            }
+            .fontclass{
+                color: dimgrey;
+            }
+            .icon-height{
+                height: 32px;
+            }
+            .ui-container{
+                margin-top: 20px;
+            }
+            form div{
+                margin-top: 20px;
+            }
+            form .demo-block .ui-btn-wrap .center{
+                text-align: center;
+            }
+            form .demo-block .ui-btn-wrap .center .ui-btn{
+                width: 40%;
+            }
+            .ui-form-item-textarea {
+                height: 200px;
+            }
+            form .ui-form-item textarea {
+                height: 200px;
+                padding-left: 0;
+            }
+            
+        </style>
+    </head>
+    <body ontouchstart>
+        <header class="header ui-header-positive ui-border-b">
+           <i class="ui-icon-return"></i>
+            <h1>添加回答</h1>
+        </header>
+        
+        <section class="ui-container">
+            <section id="form">
+                <form action="#" enctype="multipart/form-data" method="post" name="fileinfo">
+                    
+
+                    <div class="ui-form-item ui-form-item-textarea ui-border-b">
+                        
+                        <textarea class="form-content" placeholder="添加回答"></textarea>
+                    </div>
+                    
+                    
+                    <div class="demo-block ">
+                        <div class="ui-btn-wrap">
+                           <div class="center">
+                                
+                                <a href="javascript:;" class="ui-btn form-submit">提交</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </section>
+        <script type="text/javascript" src="./../../script/api.js"></script>
+        <script type="text/javascript">
+        apiready = function(){
+            var url = 'http://192.168.1.7:8080';
+
+            var Head = $api.dom("header"),
+              goBack = $api.dom(".ui-icon-return"),
+              
+           oCcontent = $api.dom(".form-content"),
+           
+            oSubmit  = $api.dom(".form-submit");
+
+            var oData = new FormData($api.dom("#form from"));
+
+            $api.fixStatusBar(Head);
+
+            api.setStatusBarStyle({
+                style: 'light'
+            });
+
+            $api.addEvt(goBack, 'click', function() {
+                api.historyBack({
+                    frameName: 'login'
+                }, function(ret, err) {
+                    if (!ret.status) {
+                        api.closeWin();
+                    }
+                });
+            });
+
+            $api.addEvt(oSubmit, "click", function() {
+                
+                api.ajax({
+                    url: url + "/xinguan/ReplyServlet",
+                    method: 'post',
+                    data: {
+                        values: { 
+                            quesID: api.pageParam.quesID,
+                            content: oCcontent.value,
+                        }
+                    }
+                },function(ret, err){
+                    alert({ msg: JSON.stringify(ret) });
+                    if(ret.replyStatus == 1) {
+                        alert("提交成功");
+                    }  else if(ret.quizStatus == 0) {
+                        alert("未登录");
+                    }
+                });
+
+            });
+        }
+        </script>
+    </body> 
+</html>
