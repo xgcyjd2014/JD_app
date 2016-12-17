@@ -20,9 +20,7 @@
     </style>
 </head>
 <body>
-    <!-- <header class="header ui-header-positive ">
-        <h1 id="title1">首页</h1> 
-    </header> -->
+    
 
     
 
@@ -58,6 +56,13 @@
                 if (!ret.status) {
                     api.closeWin();
                 }
+                });
+            });
+
+            api.addEventListener({
+                name:"shake"
+            },function() {
+                api.startRecord({
                 });
             });
         }

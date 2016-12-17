@@ -20,17 +20,37 @@
     .y-ui-header {
         width: 100%;
         z-index: 100;
-
         padding: 0 10px;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         line-height: 45px;
         background-color: #1d8ae7;
     }
-
+    .y-ui-header {
+        position: relative;
+    } 
     .y-ui-header h1 {
         text-align: center;
         font-size: 18px;
+    }
+
+    .y-ui-header .pages-header {
+        position: absolute;
+        top: 0;
+        display: none;
+    }
+
+    .y-ui-header .pages-header.page-show {
+        position: static;
+        display: block;
+    }
+    
+
+    .y-ui-header .add-question,.y-ui-header .new-homework {
+        position: absolute;
+        bottom: 4px;
+        right: 10px;
+        
     }
     footer{
         color: #ccc;
@@ -59,12 +79,24 @@
     <div id="wrap" >
 
         <header class="y-ui-header ui-header-positive ">
-            <h1>标题</h1>
+            <div class="pages-header page1 page-show">
+                <h1 id="title">首页</h1> 
+            </div>
+            <div class="pages-header page2 ">
+                <button class="ui-btn add-question" >提问</button>
+                <h1>Q & A </h1>
+            </div>
+            <div class="pages-header page3 ">
+                <i class="ui-icon-share new-homework "></i>
+                <h1>作业</h1>
+                
+            </div>
+            <div class="pages-header page4 ">
+                <h1>个人中心</h1>
+            </div>
         </header>
 
-        <!-- <section id="main" class="ui-container ui-center">
-            
-        </section> -->
+        
         <footer class="ui-footer ui-footer-stable ui-border-t">
             <ul class="ui-tiled">
                 <li class="footer-item active"><i class="iconfont">&#xe6c1;</i><div>主页</div></li>
@@ -81,13 +113,13 @@
 <script type="text/javascript">
     apiready = function(){
         var Head = $api.dom("header"),
-            main = $api.dom("#main");
-            oLi  = $api.domAll("footer ul li");
+            main = $api.dom("#main"),
+            oLi  = $api.domAll("footer ul li"),
+            oPHeader = $api.domAll(".pages-header"),
+            newHomework = $api.dom(".new-homework"),
+            addQuestion = $api.dom(".add-question");
 
         
-
-       
-
         $api.fixStatusBar(Head);    
         api.setStatusBarStyle({
             style: 'light'
@@ -99,6 +131,8 @@
         var index = 0;
         var arrPagesHost = ['html/index/main.html', 'html/QA/question.html', 'html/homework/homework.html', 'html/admin/admin.html'],
             arrPages = [];
+
+    
 
         for(var i=0; i < arrPagesHost.length; i++) {
             arrPages.push({
@@ -142,15 +176,33 @@
             });
             for(var i=0; i<oLi.length; i++) {
                 $api.removeCls(oLi[i], 'active');
+                $api.removeCls(oPHeader[i], 'page-show');
             }
+            $api.addCls(oPHeader[tag], 'page-show');
             $api.addCls(oLi[tag], 'active');
             index=tag;
         }
 
+        $api.addEvt(addQuestion, 'click', function() {
+            api.openWin({
+                name: 'newQuestion',
+                url: './html/QA/new_question.html',
+                pageParam: {
 
-        function switchHeader(tag) {
+                }
+            });
+        });
 
-        }
+        $api.addEvt(newHomework, 'click', function() {
+            api.openWin({
+                name: 'upload',
+                url: './html/homework/upload.html',
+
+                pageParam: {
+                    
+                }
+            });
+        });
         
     };
 </script>

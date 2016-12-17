@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <title>loading</title>
+
+    <script>
+    apiready= function() {
+        api.setStatusBarStyle({
+            style: 'light'
+        });
+
+        var isLoading = api.getPrefs({
+            sync: true,
+            key: 'isLoading'
+        });
+
+        if(isLoading == 1) {
+            api.openWin({
+                name: 'login',
+                url: '../login.html',
+                slidBackEnabled:false,
+                pageParam: {
+                }
+            });
+        } else {
+            api.openWin({
+                name: 'login',
+                url: './loading.html',
+                slidBackEnabled:false,
+                pageParam: {
+                }
+            });
+        }
+
+        alert(isLoading);
+    }
+    </script>
+    <style>
+    body {
+        width: 100%;
+        height: 100%;
+        background: ;
+    }
+    </style>        
+    <!-- UC浏览器 -->
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <!-- QQ -->
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+</head>
+<body>
+ 
+
+</body>
+</html>

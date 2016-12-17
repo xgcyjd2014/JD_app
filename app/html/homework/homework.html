@@ -27,10 +27,7 @@
         </style>
     </head>
     <body>
-    	<header class="header ui-header-positive ui-border-b">
-            <h1>作业</h1>
-            <i class="ui-icon-share new-homework"></i>
-        </header>
+    	
         
         <section class="ui-container list">
       		<ul class="ui-list  ui-list-link ui-border-tb">
@@ -62,7 +59,6 @@
             apiready = function(){
                 var Head = $api.dom("header"),
                     goBack = $api.dom(".ui-icon-return"),
-                    newHomework = $api.dom(".new-homework"),
                     oList = $api.domAll('.list ul li');
 
                 $api.fixStatusBar(Head);
@@ -70,19 +66,7 @@
                 api.setStatusBarStyle({
                     style: 'light'
                 });
-
-                
-
-                $api.addEvt(newHomework, 'click', function() {
-                    api.openWin({
-                        name: 'upload',
-                        url: './upload.html',
-
-                        pageParam: {
-                            
-                        }
-                    });
-                });
+ 
 
                 for(var i=0; i<oList.length; i++) {
                     $api.addEvt(oList[i], 'click', function() {

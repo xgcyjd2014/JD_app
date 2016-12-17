@@ -10,58 +10,51 @@
         <link rel="stylesheet" href="./../../css/style.css">
         
         <style type="text/css">
-            .clear{
-                clear: both;
-            }
-            .fl{
-                float: left;
-            }
-            .fr{
-                float: right;
-            }
+            
             .fontclass{
                 color: dimgrey;
             }
+            
             .icon-height{
                 height: 32px;
             }
+
             .ui-container ul{
                
                 background-color: whitesmoke;
             }
+            
             .ui-container ul li{
                 margin-top: 10px;
                 margin-left: 0;
                 padding: 10px;
                 background-color: white;
             }
+            
             .ui-container ul .ui-avatar span {
                 text-align: center;
                 font-size: 25px;
                 color: #fff;
                 line-height: 50px;
             }
+            
             .history-question{
                 height: 90px;
                 line-height: 90px;
             }
+
             .history-question i{
                 margin-top: 23px ;
             }
 
-
         </style>
     </head>
     <body ontouchstart>
-        <!-- <header class="header ui-header-positive ui-border-b">
-            <h1>Q & A</h1>
-            <button class="ui-btn add-question" >提问</button>
-        </header> -->
+        
        
         <section class="ui-container">
             <section id="list">
-                <ul class="ui-list ui-list-link ui-border-tb">
-                    
+                <ul class="ui-list ui-list-link ui-border-tb">  
                     <li class="ui-border-b">
                         <div class="ui-avatar">
                             <span style="background-color:#ccc;">我</span>
@@ -146,45 +139,14 @@
             var url = 'http://192.168.1.7:8080';
             var goBack  = $api.dom(".ui-icon-return"),
                 oUl     = $api.dom("#list ul");
-                oList   = $api.domAll("#list ul li"),
-                addQuestion = $api.dom(".add-question");
+                oList   = $api.domAll("#list ul li");
+                
                
             var pages = 1;
 
             api.setStatusBarStyle({
                 style: 'light'
             });
-
-            refSuccess();
-         
-            $api.addEvt(addQuestion, 'click', function() {
-                api.openWin({
-                    name: 'newQuestion',
-                    url: './new_question.html',
-                    pageParam: {
-
-                    }
-                });
-            });
-           
-
-            // for( var i=0; i<oList.length; i++ ) {
-            //     $api.addEvt(oList[i], 'click', function() {
-            //         api.openWin({
-            //             name: 'questionInfo',
-            //             url: './questionInfo.html',
-            //             pageParam: {
-                            
-            //             }
-            //         });
-            //     });
-            // }
-
-            // api.addEventListener({
-            //     name: "swipedown"
-            // }, function() {
-            //     api.refreshHeaderLoading();
-            // });
 
             api.setCustomRefreshHeaderInfo({
                 bgColor: '#C0C0C0',
@@ -263,40 +225,27 @@
             }
 
             //  事件委托，跳转
-            
+            liOpenWin();
+
             function liOpenWin() {
-                // $api.addEvt(oUl, 'click', function(evt) {
+                $api.addEvt(oUl, 'click', function(evt) {
                     
-                //     var target = evt.target;
-                    
-                //     if(target.nodeName.toLowerCase() == 'li') {
-                //         // api.openWin({
-                //         //     name: 'questionInfo',
-                //         //     url: './questionInfo.html',
-                //         //     pageParam: {
+                    var target = evt.target;
 
-                //         //     }
-                //         // });
-                //         alert("li");
-                        
-                //     } 
-
-                // }, false);
-
-                var aLi = oUl.childNodes;
-                for(var i=0; i<aLi.length; i++) {
-                    $api.addEvt(aLi[i], 'click', function() {
+                    if(target.nodeName.toLowerCase() == 'li') {
                         api.openWin({
                             name: 'questionInfo',
                             url: './questionInfo.html',
-                            pageParam: {
+                             pageParam: {
                                 quesId: $api.attr(this, 'data-quesId'),
                                 quesTitle: this.querySelector('h4').innerHTML,
                                 quesContent: this.querySelector('p').innerHTML
                             }
-                        });
-                    });   
-                }
+                        });   
+                    } 
+
+                }, false);
+                
             }
 
         }

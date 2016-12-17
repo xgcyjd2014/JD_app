@@ -1,14 +1,14 @@
+
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="format-detection" content="telephone=no">
-        <title>提问</title>
-         <link rel="stylesheet" href="../../common/frozenui-1.3.0/dist/css/frozen.css">
-        <link rel="stylesheet" href="./../../css/style.css">
-        
-        <style type="text/css">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="../../common/frozenui-1.3.0/dist/css/frozen.css">
+    <link rel="stylesheet" href="./../../css/style.css">
+    <style type="text/css">
             .ui-icon-star{
                 position: absolute;
                 right: 0;
@@ -17,59 +17,93 @@
                 float: left;
                 padding-left:5%; 
             }
-            .article{
-                padding:0 10%;
+            .ui-icon-add {
+                position: absolute;
+                right: 10px;
             }
-            .like{
+            
+            .ui-list {
                 position: relative;
-                left: 90%;
             }
-            .ui-footer{
-                height:100px;
+
+            .ui-list .ui-avatar {
+                float: left;
+                margin-left: 10px;
             }
-            .ui-footer ~ .ui-container {
-  border-bottom: 100px solid transparent; }
-            .ui-icon-home ,.ui-icon-news,.ui-icon-order,.ui-icon-personal{
-            height: 40px;
-           }
+            .ui-list .ques-title{
+                float: left;
+                margin-left: 80px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 18px;
+            }
+            .ui-list::after {
+                display: block;
+                height: 0;
+                visibility: hidden;
+                content: " ";
+                overflow: hidden;
+                clear: both;
+            }
+            .ques-content {
+                margin-bottom: 10px;
+                background: #fff;
+                padding: 20px;
+            }
         </style>
-    </head>
-    <body>
+</head>
+<body>
             <header class="header ui-header-positive ui-border-b">
                 <i class="ui-icon-return" onclick="history.back()"></i>
+                <i class="ui-icon-add add-answer"></i>
                 <h1>题目(根据帖子内容自拟)</h1>
-                <i class="ui-icon-star"></i>
+                
             </header>
         
 
-           
-
-            <section class="ui-container container ">
-                <ul class="ui-list">
-                    <li >
-                        <div class="ui-list-thumb ui-avatar">
-                            <span style="background-color: #ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ques-title">
-                            <a></a>
-                        </div>
-                    </li>
-                </ul>
-                <section class="article ques-content">
+           <ul class="ui-list ui-list-pure ui-border-t">
+               
                     
-                </section>
+                <div class="ui-avatar">
+                    <span style=""></span>
+                </div>
+                <div class="ques-title">
+                    你好我是
+                </div>
+               
                 
-                <i class="ui-icon-like like"></i>
+               
+            </ul>
+
+            <section class="ques-content ui-border-b">
+                
             </section>
-        <script type="text/javascript" src="./../../script/api.js"></script>
-        <script>
+            <ul class="ui-list ui-list-pure ui-border-tb">
+                <li class="ui-border-t">
+                    <p><span>1.faycheng </span><span class="date"> 2月12日</span></p>
+                    <h4>这本书太赞了，每次看都有不一样的体会和感悟，超级喜欢！期待大结局。</h4>
+                </li>
+                <li class="ui-border-t">
+                    <p><span>2.faycheng </span><span class="date"> 2月12日</span></p>
+                    <h4>标题标题标题标题标题标题题标题标题标题标题标题标题标题标题标题</h4>
+                </li>
+                <li class="ui-border-t">
+                    <p><span>3.faycheng </span><span class="date"> 2月12日</span></p>
+                    <h4>标题标题标题标题标题标题题标题标题标题标题标题标题标题标题标题</h4>
+                </li>
+            </ul>
+    <script type="text/javascript" src="./../../script/api.js"></script>
+     <script>
             apiready = function(){
                 var url = "http://192.168.1.7:8080";
 
                 var Head     = $api.dom("header"),
                     goBack   = $api.dom(".ui-icon-return"),
                     oContent = $api.dom(".ques-content"),
-                    oTitle   = $api.dom(".ques-title a");
+                    oTitle   = $api.dom(".ques-title "),
+                    addAnswer= $api.dom(".add-answer"),
+                    oLike    = $api.dom(".ui-icon-like");
 
                 oContent.innerHTML = api.pageParam.quesContent;
                 oTitle.innerHTML = api.pageParam.quesTitle;
@@ -82,10 +116,11 @@
                 api.setStatusBarStyle({
                     style: 'light'
                 });
+                api.lockSlidPane();
+                api.closeSlidPane();
 
                 //  加载完成发送ajax
                 // initAjax();
-
                 $api.addEvt(goBack, 'click', function() {
                     api.historyBack({
                         frameName: 'login'
@@ -115,28 +150,37 @@
                             }
                         }
                     },function(ret, err){
-                        api.alert({msg: JSON.stringify(ret)});
-                        
+                        // api.alert({msg: JSON.stringify(ret)});
                     });
                 }
 
+                
 
-                //  function
-
-                api.addEventListener({
-                    name: "shake"
-                }, function() {
+                // 添加回答
+                $api.addEvt(addAnswer, 'click', function() {
                     api.openWin({
-                        name: "new_answer",
+                        name: "new_answer.html",
                         url: "./new_answer.html",
                         pageParam: {
                             quesID: 12
                         }
                     });
                 });
+
+                //  点赞
+                $api.addEvt(oLike, 'click', function() {
+                    api.ajax({
+                        url: url+'',
+                        method: 'post',
+                        data: {
+                            value: {
+
+                            }
+                        }
+                    });
+                });
             }   
                 
-        </script>
-
-        </body>
-    </html>
+    </script>
+</body>
+</html>
