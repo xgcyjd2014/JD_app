@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>我的问答</title>
+    <title>我的问题</title>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
@@ -49,40 +49,7 @@
 <section class="ui-container">
             <section id="list">
                 <ul class="ui-list  ui-border-tb">  
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;">我</span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                        <div class="ui-icon-delete">
-                        </div>
-                    </li>
                    
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                        <div class="ui-icon-delete">
-                        </div>
-                    </li>
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                        <div class="ui-icon-delete">
-                        </div>
-                    </li>
                 </ul>
             </section>
         </section>
@@ -92,7 +59,13 @@
     apiready = function(){
         var Head = $api.dom("header"),
             goBack = $api.dom(".ui-icon-return"),
-            oList = $api.domAll("#task_list  li");
+            oList = $api.dom(".ui-list");
+
+        var url = 'http://192.168.1.9:8080/',
+          pages = 1;
+        
+        initAjax();
+
         $api.fixStatusBar(Head);
 
         api.setStatusBarStyle({
@@ -109,17 +82,108 @@
             });
         });
 
-        for(var i=0; i<oList.length; i++) {
-            $api.addEvt(oList[i], 'click', function() {
-                api.openWin({
-                    name: "collectionInfo", 
-                    url: "collectionInfo.html",
-                    pageParam: {
+      
 
+        // initAjax
+        function initAjax() {
+            api.ajax({
+                url: url + 'xinguan/NewQuesServlet',
+                method: 'get',
+                data: {
+                    values: { 
                     }
-                });
+                }
+            },function(ret, err){
+                
+                if (ret) {
+                    var mLi = '';
+
+                    mLi = parseHTML(ret.list);
+                    
+
+                    $api.html(oList, mLi);
+                    
+                } else {
+                    alert('fault');
+                    alert( JSON.stringify( err ) );
+                }
             });
         }
+
+
+        // 加载更多
+        api.addEventListener({
+            name:'scrolltobottom',
+            extra:{
+                threshold:500            //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err){        
+            moreSuccess();
+        });
+
+        function moreSuccess() {
+            pages++;
+            api.ajax({
+                url: url + 'xinguan/NextMemPageServlet',
+                method: 'get',
+                data: {
+                    values: {
+                        currentpage: pages
+                    }
+                }
+            }, function(ret, err) {
+                var mLi = '';
+
+                mLi = parseHTML(ret.list);
+
+                $api.append(oList, mLi);
+            });
+        }
+
+
+        function parseHTML(data) {
+            var str = '';
+
+            for(var i=0; i<(data).length; i++) {
+                str += '<li class="ui-border-b"><div class="ui-avatar"><span style="background-color:#ccc;"></span></div><div class="ui-list-info "><h4 class="ui-nowrap">'+data[i].quesTitle+'</h4><p class="ui-nowrap">'+data[i].quesContent+'</p></div><div class="ui-icon-delete" data-id='+data[i].quesID+'></div></li>';
+            }
+
+            return str;
+        }
+
+        // 点击删除
+        $api.addEvt(oList, 'click', function(evt) {
+            if(evt.target.className == 'ui-icon-delete') {
+                var quesId = $api.attr(evt.target, 'data-id');
+
+                api.confirm({
+                    title: '删除提示',
+                    msg: '您确认删除?',
+                    buttons: ['确定', '取消']
+                }, function(ret, err) {
+                    var index = ret.buttonIndex;
+                    if(index == 1) {
+                        api.ajax({
+                            url: url + 'xinguan/DeleteQuesServlet',
+                            method: 'get',
+                            data: {
+                                values: {
+                                    quesID: quesId
+                                }
+                            }
+                        }, function(ret, err) {
+                            if(ret.deleteStatus == 1) {
+                                $api.remove(evt.target.parentNode);
+                            }else {
+                                api.alert("删除失败，请检查网络!");
+                            }
+                        });
+                    }
+                });
+                
+            }
+        });
+
     }
       
 </script>

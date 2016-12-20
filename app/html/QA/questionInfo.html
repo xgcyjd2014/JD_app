@@ -96,7 +96,7 @@
     <script type="text/javascript" src="./../../script/api.js"></script>
      <script>
             apiready = function(){
-                var url = "http://192.168.1.7:8080";
+                var url = "http://192.168.1.9:8080";
 
                 var Head     = $api.dom("header"),
                     goBack   = $api.dom(".ui-icon-return"),
@@ -120,7 +120,8 @@
                 api.closeSlidPane();
 
                 //  加载完成发送ajax
-                // initAjax();
+                initAjax();
+                
                 $api.addEvt(goBack, 'click', function() {
                     api.historyBack({
                         frameName: 'login'
@@ -139,18 +140,18 @@
 
                 // 加载完成发送ajax
                 function initAjax() {
+
                     api.ajax({
                         url: url + '/xinguan/ReplyListServlet',
                         method: 'post',
                         data: {
                             values: { 
-                                // quesID: api.pageParam.quesId,
-                                quesID: 12,
+                                quesID: api.pageParam.quesId,
                                 currentPage: pages
                             }
                         }
                     },function(ret, err){
-                        // api.alert({msg: JSON.stringify(ret)});
+                        
                     });
                 }
 
@@ -162,7 +163,7 @@
                         name: "new_answer.html",
                         url: "./new_answer.html",
                         pageParam: {
-                            quesID: 12
+                            quesID: api.pageParam.quesId
                         }
                     });
                 });

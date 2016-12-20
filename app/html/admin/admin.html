@@ -25,20 +25,18 @@
                 </div>
             </li>
             <li class="ui-border-t my-baseInfo">
-                <h4 class="ui-nowrap">基本设置</h4>
+                <h4 class="ui-nowrap">基本信息设置</h4>
                 <i class="ui-icon-set"></i>
             </li>
+            
+            <li class="ui-border-t my-psw" id="task">
+                <h4 class="ui-nowrap">修改密码</h4>
+                <i class="ui-icon-file"></i>
+            </li>
+            
             <li class="ui-border-t my-QA">
                 <h4 class="ui-nowrap">我的问题</h4>
                 <i class="ui-icon-collect"></i>
-            </li>
-            <li class="ui-border-t my-homework" id="task">
-                <h4 class="ui-nowrap">我的作业</h4>
-                <i class="ui-icon-file"></i>
-            </li>
-            <li class="ui-border-t">
-                <h4 class="ui-nowrap">我的论坛</h4>
-                <i class="ui-icon-comment"></i>
             </li>
         </ul>
     </section>
@@ -50,7 +48,8 @@
                 goBack = $api.dom(".ui-icon-return"),
                 oQA = $api.dom(".my-QA"),
                 homework = $api.dom(".my-homework"),
-                oBaseInfo = $api.dom(".my-baseInfo");
+                oBaseInfo = $api.dom(".my-baseInfo"),
+                changePwd = $api.dom('.my-psw');
 
             $api.fixStatusBar(Head);
 
@@ -65,7 +64,7 @@
                     pageParam: {
                     }
                 });
-            });
+            });                  
 
             $api.addEvt(oQA, 'click', function() {
                 api.openWin({
@@ -84,6 +83,17 @@
                     }
                 });
             });
+
+            $api.addEvt(changePwd, 'click', function() {
+                api.openWin({
+                    name: "changePwd",
+                    url: "../forgetPsw/retrieve_pwd.html",
+                    pageParam: {
+                    }
+                });
+            });
+
+            
         }
           
     </script>

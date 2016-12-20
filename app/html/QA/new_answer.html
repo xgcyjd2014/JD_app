@@ -81,7 +81,7 @@
         <script type="text/javascript" src="./../../script/api.js"></script>
         <script type="text/javascript">
         apiready = function(){
-            var url = 'http://192.168.1.7:8080';
+            var url = 'http://192.168.1.9:8080';
 
             var Head = $api.dom("header"),
               goBack = $api.dom(".ui-icon-return"),
@@ -120,10 +120,11 @@
                         }
                     }
                 },function(ret, err){
-                    alert({ msg: JSON.stringify(ret) });
+                    api.alert({ msg: JSON.stringify(ret) });
+                    
                     if(ret.replyStatus == 1) {
                         alert("提交成功");
-                    }  else if(ret.quizStatus == 0) {
+                    }  else if(ret.replyStatus == 0) {
                         alert("未登录");
                     }
                 });

@@ -55,79 +55,7 @@
         <section class="ui-container">
             <section id="list">
                 <ul class="ui-list ui-list-link ui-border-tb">  
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;">我</span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
-
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
-                    <li class="ui-border-b">
-                        <div class="ui-avatar">
-                            <span style="background-color:#ccc;"></span>
-                        </div>
-                        <div class="ui-list-info ">
-                            <h4 class="ui-nowrap">入门常识</h4>
-                            <p class="ui-nowrap">基地入门常用的基本回答</p>
-                        </div>
-                    </li>
+                    
                 </ul>
             </section>
         </section>
@@ -136,13 +64,16 @@
     <script>
         apiready = function(){
 
-            var url = 'http://192.168.1.7:8080';
+            var url = 'http://192.168.1.9:8080';
             var goBack  = $api.dom(".ui-icon-return"),
                 oUl     = $api.dom("#list ul");
                 oList   = $api.domAll("#list ul li");
-                
-               
-            var pages = 1;
+
+            
+            var pages = 0;
+
+            moreSuccess();
+
 
             api.setStatusBarStyle({
                 style: 'light'
@@ -227,19 +158,21 @@
             //  事件委托，跳转
             liOpenWin();
 
+
             function liOpenWin() {
                 $api.addEvt(oUl, 'click', function(evt) {
                     
                     var target = evt.target;
 
                     if(target.nodeName.toLowerCase() == 'li') {
+                        
                         api.openWin({
                             name: 'questionInfo',
                             url: './questionInfo.html',
                              pageParam: {
-                                quesId: $api.attr(this, 'data-quesId'),
-                                quesTitle: this.querySelector('h4').innerHTML,
-                                quesContent: this.querySelector('p').innerHTML
+                                quesId: $api.attr(target, 'data-quesId'),
+                                quesTitle: target.querySelector('h4').innerHTML,
+                                quesContent: target.querySelector('p').innerHTML
                             }
                         });   
                     } 
