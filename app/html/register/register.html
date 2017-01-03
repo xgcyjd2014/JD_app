@@ -74,7 +74,7 @@
       <script type="text/javascript" src="./../../script/api.js"></script>
       <script>
       apiready = function(){
-          var url = "http://192.168.1.6:8080";
+          var url = "http://demoncirno.cn:8080";
           var Head = $api.dom("header"),
             goBack = $api.dom(".ui-icon-return");
 
@@ -125,7 +125,7 @@
           });
 
           $api.addEvt(oSubmitMobile, 'click', ajaxMobile);
-
+          
           function ajaxMobile() {
             if(oMobile.value) {
                 api.ajax({
@@ -195,7 +195,6 @@
 
                 });
           });
-          
       }
           
       </script>

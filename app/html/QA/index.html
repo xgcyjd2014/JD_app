@@ -2,13 +2,41 @@
 <html>
 <head>
     <title></title>
+    <meta charset="UTF-8">
 </head>
 <body>
-    <form action="http://192.168.1.9:8080/xinguan/fileupload" enctype="multipart/form-data" method="post" name="fileinfo">
+    <form action="#" enctype="multipart/form-data" method="post" name="fileinfo" id="form">
             
         <input class="image-url" type="file">
-        <input type="submit" name="">
+        <input type="button" value="提交" id="submit" name="">
 
     </form>
+
+    <script>
+    var oSubmit = document.getElementById("submit");
+    var oForm = document.getElementById("form");
+
+
+    oSubmit.onclick = function() {
+        var oFrom = new FormData(oForm);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('post', "http://demoncirno.cn:8080/xinguan/fileupload");
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.send(oFrom);
+
+    xhr.onreadystatechange = function () {
+        if( xhr.readyState == 4){
+
+            if( xhr.status == 200){
+                success && success(xhr.responseText);
+            }else{  
+                alert('Error:' + xhr.status);
+            }
+        }
+    }
+    }
+    
+    </script>
 </body>
 </html>
